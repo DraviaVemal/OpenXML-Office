@@ -45,12 +45,7 @@ public class PowerPoint
 
     public void AddSlide(PresentationConstants.SlideLayoutType slideLayoutType)
     {
-        switch (slideLayoutType)
-        {
-            default: //Blank
-                presentation.AddBlankSlide();
-                break;
-        }
+        presentation.AddSlide(slideLayoutType);
     }
 
     public void Save()

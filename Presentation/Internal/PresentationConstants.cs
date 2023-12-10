@@ -8,8 +8,8 @@ public static class PresentationConstants
 
     public enum CommonSlideDataType
     {
-        SLIDE_LAYOUT,
         SLIDE_MASTER,
+        SLIDE_LAYOUT,
         SLIDE
     }
 
