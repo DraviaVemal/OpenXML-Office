@@ -1,4 +1,4 @@
-namespace OpenXMLOffice.Excel
+namespace OpenXMLOffice.Global
 {
     // Define a simple model class
     public static class ConverterUtils
@@ -66,6 +66,19 @@ namespace OpenXMLOffice.Excel
         {
             if (row < 1 || column < 1)
                 throw new ArgumentException("Row and column indices must be positive integers.");
+            return ConvertIntToColumnName(column) + row;
+        }
+
+        /// <summary>
+        /// Converts an integer representing an Excel column index to its corresponding column name.
+        /// </summary>
+        /// <param name="column">The column index to be converted. Must be a positive integer.</param>
+        /// <returns>The Excel column name corresponding to the given column index.</returns>
+        /// <exception cref="ArgumentException">Thrown when the column index is less than 1.</exception>
+        public static string ConvertIntToColumnName(int column)
+        {
+            if (column < 1)
+                throw new ArgumentException("Column indices must be positive integers.");
             int dividend = column;
             string columnName = string.Empty;
             while (dividend > 0)
@@ -74,7 +87,7 @@ namespace OpenXMLOffice.Excel
                 columnName = Convert.ToChar(65 + modulo) + columnName;
                 dividend = (dividend - modulo) / 26;
             }
-            return columnName + row;
+            return columnName;
         }
 
         #endregion Public Methods
