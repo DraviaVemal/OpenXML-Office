@@ -60,38 +60,17 @@ namespace OpenXMLOffice.Presentation
             return Table;
         }
 
-        private A.TableRow CreateTableRow(TableRow row)
+        private A.TableRow CreateTableRow(TableRow Row)
         {
             A.TableRow TableRow = new()
             {
-                Height = row.Height
+                Height = Row.Height
             };
-            foreach (TableCell cell in row.TableCells)
+            foreach (TableCell cell in Row.TableCells)
             {
                 TableRow.Append(CreateTableCell(cell));
             }
             return TableRow;
-        }
-
-        private A.TableCell CreateTableCell(TableCell cell)
-        {
-            A.TableCell TableCell = new();
-            A.Paragraph Paragraph = new();
-            if (cell.Value == null)
-            {
-                Paragraph.Append(new A.EndParagraphRunProperties() { Language = "en-IN" });
-            }
-            else
-            {
-                Paragraph.Append(new A.Run(new A.RunProperties() { Language = "en-IN", Dirty = false }, new A.Text(cell.Value)));
-            }
-            TableCell.Append(new A.TextBody(
-                new A.BodyProperties(),
-                new A.ListStyle(),
-                Paragraph
-            ));
-            TableCell.Append(new A.TableCellProperties());
-            return TableCell;
         }
 
         private A.TableGrid CreateTableGrid(TableSetting TableSetting)
@@ -99,9 +78,67 @@ namespace OpenXMLOffice.Presentation
             A.TableGrid TableGrid = new();
             foreach (TableColumnSetting Column in TableSetting.TableColumnSettings)
             {
-                TableGrid.Append(new A.GridColumn() { Width = 4064000 });
+                TableGrid.Append(new A.GridColumn() { Width = Column.Width });
             }
             return TableGrid;
+        }
+
+        private A.TableCell CreateTableCell(TableCell Cell)
+        {
+            A.TableCell TableCell = new();
+            A.Paragraph Paragraph = new();
+            if (Cell.Value == null)
+            {
+                Paragraph.Append(new A.EndParagraphRunProperties() { Language = "en-IN" });
+            }
+            else
+            {
+                Paragraph.Append(new TextBox().CreateTextRun(new TextBoxSetting()
+                {
+                    Text = Cell.Value,
+                    TextBackground = Cell.TextBackground,
+                    TextColor = Cell.TextColor
+                }));
+            }
+            TableCell.Append(new A.TextBody(
+                new A.BodyProperties(),
+                new A.ListStyle(),
+                Paragraph
+            ));
+            A.TableCellProperties TableCellProperties = new();
+            TableCellProperties.Append(new A.LeftBorderLineProperties(
+                Cell.LeftBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.RightBorderLineProperties(
+                Cell.RightBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.TopBorderLineProperties(
+                Cell.TopBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.BottomBorderLineProperties(
+                Cell.BottomBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.TopLeftToBottomRightBorderLineProperties(
+                Cell.BottomBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.BottomLeftToTopRightBorderLineProperties(
+                Cell.BottomBorder ? new A.SolidFill(new A.RgbColorModelHex() { Val = "000000" }) : new A.NoFill(),
+                new A.PresetDash() { Val = A.PresetLineDashValues.Solid }
+            )
+            { Width = 12700, CompoundLineType = A.CompoundLineValues.Single });
+            TableCellProperties.Append(new A.SolidFill(new A.RgbColorModelHex() { Val = Cell.CellBackground }));
+            TableCell.Append(TableCellProperties);
+            return TableCell;
         }
 
         public P.GraphicFrame CreateTableGraphicFrame(TableRow[] TableRows, TableSetting TableSetting)
