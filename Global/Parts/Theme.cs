@@ -5,9 +5,9 @@
 
 using A = DocumentFormat.OpenXml.Drawing;
 
-namespace OpenXMLOffice.Presentation
+namespace OpenXMLOffice.Global
 {
-    internal class Theme
+    public class Theme
     {
         #region Private Fields
 
@@ -36,9 +36,9 @@ namespace OpenXMLOffice.Presentation
 
         #region Public Constructors
 
-        public Theme(PresentationTheme? presentationTheme = null)
+        public Theme(ThemePallet? ThemePallet = null)
         {
-            CreateTheme(presentationTheme);
+            CreateTheme(ThemePallet);
         }
 
         #endregion Public Constructors
@@ -76,7 +76,7 @@ namespace OpenXMLOffice.Presentation
                 AppendNodes(19050)};
         }
 
-        private void CreateTheme(PresentationTheme? presentationTheme)
+        private void CreateTheme(ThemePallet? ThemePallet)
         {
             OpenXMLTheme.Name = "Office Theme";
             OpenXMLTheme.ObjectDefaults = new();
@@ -85,18 +85,18 @@ namespace OpenXMLOffice.Presentation
                 FontScheme = GenerateFontScheme(),
                 FormatScheme = GenerateFormatScheme(),
                 ColorScheme = new A.ColorScheme(
-                   new A.Dark1Color(new A.SystemColor { Val = A.SystemColorValues.WindowText, LastColor = presentationTheme?.Dark1 }),
-                   new A.Light1Color(new A.SystemColor { Val = A.SystemColorValues.Window, LastColor = presentationTheme?.Light1 }),
-                   new A.Dark2Color(new A.RgbColorModelHex { Val = presentationTheme?.Dark2 }),
-                   new A.Light2Color(new A.RgbColorModelHex { Val = presentationTheme?.Light2 }),
-                   new A.Accent1Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent1 }),
-                   new A.Accent2Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent2 }),
-                   new A.Accent3Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent3 }),
-                   new A.Accent4Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent4 }),
-                   new A.Accent5Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent5 }),
-                   new A.Accent6Color(new A.RgbColorModelHex { Val = presentationTheme?.Accent6 }),
-                   new A.Hyperlink(new A.RgbColorModelHex { Val = presentationTheme?.Hyperlink }),
-                   new A.FollowedHyperlinkColor(new A.RgbColorModelHex { Val = presentationTheme?.FollowedHyperlink })
+                   new A.Dark1Color(new A.SystemColor { Val = A.SystemColorValues.WindowText, LastColor = ThemePallet?.Dark1 }),
+                   new A.Light1Color(new A.SystemColor { Val = A.SystemColorValues.Window, LastColor = ThemePallet?.Light1 }),
+                   new A.Dark2Color(new A.RgbColorModelHex { Val = ThemePallet?.Dark2 }),
+                   new A.Light2Color(new A.RgbColorModelHex { Val = ThemePallet?.Light2 }),
+                   new A.Accent1Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent1 }),
+                   new A.Accent2Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent2 }),
+                   new A.Accent3Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent3 }),
+                   new A.Accent4Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent4 }),
+                   new A.Accent5Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent5 }),
+                   new A.Accent6Color(new A.RgbColorModelHex { Val = ThemePallet?.Accent6 }),
+                   new A.Hyperlink(new A.RgbColorModelHex { Val = ThemePallet?.Hyperlink }),
+                   new A.FollowedHyperlinkColor(new A.RgbColorModelHex { Val = ThemePallet?.FollowedHyperlink })
                    )
                 {
                     Name = "Office"
