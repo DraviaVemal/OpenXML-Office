@@ -8,7 +8,7 @@ namespace OpenXMLOffice.Global_2013
 	/// <summary>
 	/// Represents a class for creating color styles for charts.
 	/// </summary>
-	internal class ChartColor
+	public class ChartColor
 	{
 
 		/// <summary>

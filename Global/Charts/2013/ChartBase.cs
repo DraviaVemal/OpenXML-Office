@@ -50,9 +50,7 @@ public class ChartBase : CommonProperties
 	/// <summary>
 	/// Get OpenXML ChartSpace
 	/// </summary>
-	/// <returns>
-	/// </returns>
-	public C.ChartSpace GetChartSpace()
+	public virtual C.ChartSpace GetChartSpace()
 	{
 		return openXMLChartSpace;
 	}
@@ -170,22 +168,6 @@ public class ChartBase : CommonProperties
 		{
 			return new(new C.StringReference(new C.Formula(formula), AddStringCacheValue(cells)));
 		}
-	}
-
-	/// <summary>
-	/// Create Chart Styles for the chart
-	/// </summary>
-	protected static CS.ChartStyle CreateChartStyles()
-	{
-		return ChartStyle.CreateChartStyles();
-	}
-
-	/// <summary>
-	/// Create Color Styles for the chart
-	/// </summary>
-	protected static CS.ColorStyle CreateColorStyles()
-	{
-		return ChartColor.CreateColorStyles();
 	}
 
 	/// <summary>

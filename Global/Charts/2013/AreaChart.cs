@@ -1,7 +1,5 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
 
-using CS = DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
-
 namespace OpenXMLOffice.Global_2013
 {
 	/// <summary>
@@ -20,29 +18,5 @@ namespace OpenXMLOffice.Global_2013
 			 /// The data columns.
 			 /// </param>
 		public AreaChart(AreaChartSetting areaChartSetting, ChartData[][] dataCols) : base(areaChartSetting, dataCols) { }
-
-		/// <summary>
-		/// Gets the chart style for the area chart.
-		/// </summary>
-		/// <returns>
-		/// The chart style.
-		/// </returns>
-		public static CS.ChartStyle GetChartStyle()
-		{
-			return CreateChartStyles();
-		}
-
-		/// <summary>
-		/// Gets the color style for the area chart.
-		/// </summary>
-		/// <returns>
-		/// The color style.
-		/// </returns>
-		public static CS.ColorStyle GetColorStyle()
-		{
-			return CreateColorStyles();
-		}
-
-
 	}
 }

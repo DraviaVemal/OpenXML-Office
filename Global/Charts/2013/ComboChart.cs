@@ -101,28 +101,5 @@ namespace OpenXMLOffice.Global_2013
 			List<ChartDataGrouping> chartDataGroupings = CreateDataSeries(dataCols, comboChartSetting.chartDataSetting);
 			return new() { chartDataGroupings.ElementAt((int)chartPosition) };
 		}
-
-		/// <summary>
-		/// Get Chart Style
-		/// </summary>
-		/// <returns>
-		/// </returns>
-		public static CS.ChartStyle GetChartStyle()
-		{
-			return CreateChartStyles();
-		}
-
-		/// <summary>
-		/// Get Color Style
-		/// </summary>
-		/// <returns>
-		/// </returns>
-		public static CS.ColorStyle GetColorStyle()
-		{
-			return CreateColorStyles();
-		}
-
-
 	}
-
 }
