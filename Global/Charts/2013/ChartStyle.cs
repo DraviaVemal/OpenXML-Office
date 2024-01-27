@@ -9,9 +9,12 @@ namespace OpenXMLOffice.Global_2013;
 /// <summary>
 /// Represents the chart style used for creating various chart elements.
 /// </summary>
-internal class ChartStyle
+public class ChartStyle
 {
-
+	/// <summary>
+	///
+	/// </summary>
+	/// <returns></returns>
 	public static CS.ChartStyle CreateChartStyles()
 	{
 		CS.ChartStyle ChartStyle = new()

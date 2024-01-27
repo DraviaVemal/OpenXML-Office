@@ -1,6 +1,6 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
 
-using System.Data;
+using OpenXMLOffice.Global_2013;
 
 namespace OpenXMLOffice.Global_2016
 {
@@ -13,7 +13,7 @@ namespace OpenXMLOffice.Global_2016
 		/// <summary>
 		///
 		/// </summary>
-		public WaterfallChart(WaterfallChartSetting waterfallChartSetting, DataColumn[][] dataColumns) : base(waterfallChartSetting)
+		public WaterfallChart(WaterfallChartSetting waterfallChartSetting, ChartData[][] dataColumns) : base(waterfallChartSetting)
 		{
 			this.waterfallChartSetting = waterfallChartSetting;
 		}

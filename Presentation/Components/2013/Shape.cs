@@ -31,81 +31,81 @@ namespace OpenXMLOffice.Presentation_2013
 		/// <summary>
 		/// Replace Chart for the source Shape
 		/// </summary>
-		public Chart ReplaceChart(Chart Chart)
+		public Chart ReplaceChart(Chart chart)
 		{
 			DocumentFormat.OpenXml.OpenXmlElement? parent = openXMLShape.Parent ?? throw new InvalidOperationException("Old shape must have a parent.");
 			if (openXMLShape.ShapeProperties?.Transform2D != null)
 			{
 				A.Transform2D oldTransform = openXMLShape.ShapeProperties.Transform2D;
-				Chart.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
-				Chart.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
+				chart.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
+				chart.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
 			}
-			if (Chart.GetChartGraphicFrame().Parent == null)
+			if (chart.GetChartGraphicFrame().Parent == null)
 			{
-				parent.InsertBefore(Chart.GetChartGraphicFrame(), openXMLShape);
+				parent.InsertBefore(chart.GetChartGraphicFrame(), openXMLShape);
 			}
 			openXMLShape.Remove();
-			return Chart;
+			return chart;
 		}
 
 		/// <summary>
 		/// Replace Picture for the source Shape
 		/// </summary>
-		public Picture ReplacePicture(Picture Picture)
+		public Picture ReplacePicture(Picture picture)
 		{
 			DocumentFormat.OpenXml.OpenXmlElement? parent = openXMLShape.Parent ?? throw new InvalidOperationException("Old shape must have a parent.");
 			if (openXMLShape.ShapeProperties?.Transform2D != null)
 			{
 				A.Transform2D oldTransform = openXMLShape.ShapeProperties.Transform2D;
-				Picture.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
-				Picture.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
+				picture.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
+				picture.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
 			}
-			if (Picture.GetPicture().Parent == null)
+			if (picture.GetPicture().Parent == null)
 			{
-				parent.InsertBefore(Picture.GetPicture(), openXMLShape);
+				parent.InsertBefore(picture.GetPicture(), openXMLShape);
 			}
 			openXMLShape.Remove();
-			return Picture;
+			return picture;
 		}
 
 		/// <summary>
 		/// Replace Table for the source Shape
 		/// </summary>
-		public Table ReplaceTable(Table Table)
+		public Table ReplaceTable(Table table)
 		{
 			DocumentFormat.OpenXml.OpenXmlElement? parent = openXMLShape.Parent ?? throw new InvalidOperationException("Old shape must have a parent.");
 			if (openXMLShape.ShapeProperties?.Transform2D != null)
 			{
 				A.Transform2D oldTransform = openXMLShape.ShapeProperties.Transform2D;
-				Table.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
-				Table.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
+				table.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
+				table.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
 			}
-			if (Table.GetTableGraphicFrame().Parent == null)
+			if (table.GetTableGraphicFrame().Parent == null)
 			{
-				parent.InsertBefore(Table.GetTableGraphicFrame(), openXMLShape);
+				parent.InsertBefore(table.GetTableGraphicFrame(), openXMLShape);
 			}
 			openXMLShape.Remove();
-			return Table;
+			return table;
 		}
 
 		/// <summary>
 		/// Replace Textbox for the source Shape
 		/// </summary>
-		public TextBox ReplaceTextBox(TextBox TextBox)
+		public TextBox ReplaceTextBox(TextBox textBox)
 		{
 			DocumentFormat.OpenXml.OpenXmlElement? parent = openXMLShape.Parent ?? throw new InvalidOperationException("Old shape must have a parent.");
 			if (openXMLShape.ShapeProperties?.Transform2D != null)
 			{
 				A.Transform2D oldTransform = openXMLShape.ShapeProperties.Transform2D;
-				TextBox.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
-				TextBox.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
+				textBox.UpdateSize((uint)oldTransform.Extents!.Cx!, (uint)oldTransform.Extents!.Cy!);
+				textBox.UpdatePosition((uint)oldTransform.Offset!.X!, (uint)oldTransform.Offset!.Y!);
 			}
-			if (TextBox.GetTextBoxShape().Parent == null)
+			if (textBox.GetTextBoxShape().Parent == null)
 			{
-				parent.InsertBefore(TextBox.GetTextBoxShape(), openXMLShape);
+				parent.InsertBefore(textBox.GetTextBoxShape(), openXMLShape);
 			}
 			openXMLShape.Remove();
-			return TextBox;
+			return textBox;
 		}
 
 		internal P.Shape GetShape()
