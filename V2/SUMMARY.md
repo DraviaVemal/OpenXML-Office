@@ -23,7 +23,7 @@
 
 ## Spreadsheet
 
-* [Spreadsheet](spreadsheet/spreadsheet.md)
+* [Excel](spreadsheet/excel.md)
 * [Worksheet](spreadsheet/worksheet.md)
 * [Style](spreadsheet/style.md)
 
