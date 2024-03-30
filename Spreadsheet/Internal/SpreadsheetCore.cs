@@ -5,105 +5,72 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using OpenXMLOffice.Global_2013;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// Spreadsheet Core class for initializing the Spreadsheet
 	/// </summary>
-	public class SpreadsheetCore
+	internal class SpreadsheetCore
 	{
 
-
-		/// <summary>
-		/// Maintain the master OpenXML Spreadsheet document
-		/// </summary>
 		internal readonly SpreadsheetDocument spreadsheetDocument;
 
-		/// <summary>
-		/// Maintain the Spreadsheet Properties
-		/// </summary>
+		internal readonly SpreadsheetInfo spreadsheetInfo = new();
+
 		internal readonly SpreadsheetProperties spreadsheetProperties;
 
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class
-		/// </summary>
-		internal SpreadsheetCore(string filePath)
+		internal SpreadsheetCore(string filePath, SpreadsheetProperties? spreadsheetProperties)
 		{
-			spreadsheetProperties = new();
-			spreadsheetDocument = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook, true);
-			PrepareSpreadsheet(spreadsheetProperties);
-			InitialiseStyle();
-			LoadStyle();
-		}
-
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class,
-		/// allowing you to work with Excel spreadsheet It accepts a Existing excel file path and a
-		/// SpreadsheetDocumentType enumeration value as parameters and creates a corresponding
-		/// SpreadsheetDocument. This is also used to update as template.
-		/// </summary>
-		internal SpreadsheetCore(string filePath, SpreadsheetProperties spreadsheetProperties)
-		{
-			this.spreadsheetProperties = spreadsheetProperties;
-			spreadsheetDocument = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook, true);
+			spreadsheetInfo.filePath = filePath;
+			this.spreadsheetProperties = spreadsheetProperties ?? new();
+			MemoryStream memoryStream = new();
+			spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook, true);
 			PrepareSpreadsheet(this.spreadsheetProperties);
 			InitialiseStyle();
 			LoadStyle();
 		}
 
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class
-		/// </summary>
-		internal SpreadsheetCore(string filePath, bool isEditable)
+		internal SpreadsheetCore(string filePath, bool isEditable, SpreadsheetProperties? spreadsheetProperties = null)
 		{
-			spreadsheetProperties = new();
-			spreadsheetDocument = SpreadsheetDocument.Open(filePath, isEditable, new OpenSettings
+			spreadsheetInfo.filePath = filePath;
+			this.spreadsheetProperties = spreadsheetProperties ?? new();
+			FileStream reader = new(filePath, FileMode.Open);
+			MemoryStream memoryStream = new();
+			reader.CopyTo(memoryStream);
+			reader.Close();
+			spreadsheetDocument = SpreadsheetDocument.Open(memoryStream, isEditable, new OpenSettings()
 			{
 				AutoSave = true
 			});
-			PrepareSpreadsheet(spreadsheetProperties);
-			InitialiseStyle();
-			LoadStyle();
-		}
-
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class.
-		/// </summary>
-		internal SpreadsheetCore(string filePath, bool isEditable, SpreadsheetProperties spreadsheetProperties)
-		{
-			this.spreadsheetProperties = spreadsheetProperties;
-			spreadsheetDocument = SpreadsheetDocument.Open(filePath, isEditable, new OpenSettings
+			if (isEditable)
 			{
-				AutoSave = true
-			});
+				spreadsheetInfo.isExistingFile = true;
+			}
+			else
+			{
+				spreadsheetInfo.isEditable = false;
+			}
 			PrepareSpreadsheet(this.spreadsheetProperties);
 			InitialiseStyle();
 			LoadStyle();
 		}
 
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class,
-		/// allowing you to work with Excel spreadsheet It accepts a Stream object and a
-		/// SpreadsheetDocumentType enumeration value as parameters and creates a corresponding SpreadsheetDocument.
-		/// </summary>
-		internal SpreadsheetCore(Stream stream)
+		internal SpreadsheetCore(Stream stream, SpreadsheetProperties? spreadsheetProperties = null)
 		{
-			spreadsheetProperties = new();
+			this.spreadsheetProperties = spreadsheetProperties ?? new();
 			spreadsheetDocument = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook, true);
-			PrepareSpreadsheet(spreadsheetProperties);
+			PrepareSpreadsheet(this.spreadsheetProperties);
 			InitialiseStyle();
 			LoadStyle();
 		}
 
-		/// <summary>
-		/// This public constructor method initializes a new instance of the Spreadsheet class,
-		/// allowing you to work with Excel spreadsheet It accepts a Stream object and a
-		/// SpreadsheetDocumentType enumeration value as parameters and creates a corresponding SpreadsheetDocument.
-		/// </summary>
-		internal SpreadsheetCore(Stream stream, SpreadsheetProperties spreadsheetProperties)
+		internal SpreadsheetCore(Stream stream, bool isEditable, SpreadsheetProperties? spreadsheetProperties = null)
 		{
-			this.spreadsheetProperties = spreadsheetProperties;
-			spreadsheetDocument = SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook, true);
+			this.spreadsheetProperties = spreadsheetProperties ?? new();
+			spreadsheetDocument = SpreadsheetDocument.Open(stream, isEditable, new OpenSettings()
+			{
+				AutoSave = true
+			});
 			PrepareSpreadsheet(this.spreadsheetProperties);
 			InitialiseStyle();
 			LoadStyle();

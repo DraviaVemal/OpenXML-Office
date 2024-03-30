@@ -4,7 +4,7 @@ using LiteDB;
 using OpenXMLOffice.Global_2013;
 using X = DocumentFormat.OpenXml.Spreadsheet;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// This class serves as a versatile tool for working with Excel spreadsheets, styles component

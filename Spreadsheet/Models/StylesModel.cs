@@ -2,7 +2,7 @@
 
 using OpenXMLOffice.Global_2013;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 
 	/// <summary>

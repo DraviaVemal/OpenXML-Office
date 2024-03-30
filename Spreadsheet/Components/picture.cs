@@ -6,7 +6,7 @@ using A = DocumentFormat.OpenXml.Drawing;
 using X = DocumentFormat.OpenXml.Spreadsheet;
 using XDR = DocumentFormat.OpenXml.Drawing.Spreadsheet;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// Excel Picture

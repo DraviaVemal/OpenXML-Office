@@ -6,8 +6,8 @@
 		<Folder Include="Models/" />
 	</ItemGroup>
 	<PropertyGroup>
-		<PackageId>OpenXMLOffice.Excel</PackageId>
-		<RootNamespace>OpenXMLOffice.Excel_2013</RootNamespace>
+		<PackageId>OpenXMLOffice.Spreadsheet</PackageId>
+		<RootNamespace>OpenXMLOffice.Spreadsheet_2013</RootNamespace>
 		<WeaverCosturaOutputInProjectFolder>true</WeaverCosturaOutputInProjectFolder>
 		<CosturaOutputType>SingleFile</CosturaOutputType>
 		<ImplicitUsings>enable</ImplicitUsings>

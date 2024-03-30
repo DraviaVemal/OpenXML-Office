@@ -2,7 +2,7 @@
 
 using OpenXMLOffice.Global_2013;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// Represents the properties of a column in a worksheet.
@@ -25,5 +25,12 @@ namespace OpenXMLOffice.Excel_2013
 	/// </summary>
 	public class SpreadsheetSettings
 	{
+	}
+
+	internal class SpreadsheetInfo
+	{
+		public string? filePath;
+		public bool isEditable = true;
+		public bool isExistingFile = false;
 	}
 }

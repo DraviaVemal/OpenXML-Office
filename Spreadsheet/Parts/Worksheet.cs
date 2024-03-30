@@ -5,7 +5,7 @@ using DocumentFormat.OpenXml.Packaging;
 using OpenXMLOffice.Global_2013;
 using X = DocumentFormat.OpenXml.Spreadsheet;
 
-namespace OpenXMLOffice.Excel_2013
+namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// Represents a worksheet in an Excel workbook.
