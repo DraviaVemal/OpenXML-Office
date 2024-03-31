@@ -32,24 +32,7 @@ namespace OpenXMLOffice.Spreadsheet_2013
 			this.chartSetting = chartSetting;
 			currentWorksheet = worksheet;
 		}
-
-		/// <summary>
-		///
-		/// </summary>
-		internal void WriteDataToExcel(DataCell[][] dataRows, Stream stream)
-		{
-			// Load Data To Embeded Sheet
-			Excel excel = new(stream, null);
-			Worksheet worksheet = excel.AddSheet();
-			int rowIndex = 1;
-			foreach (DataCell[] dataCells in dataRows)
-			{
-				worksheet.SetRow(rowIndex, 1, dataCells, new RowProperties());
-				++rowIndex;
-			}
-			excel.Save();
-		}
-
+		
 		/// <summary>
 		/// </summary>
 		/// <returns>
