@@ -8,16 +8,16 @@ namespace OpenXMLOffice.Global_2013
 	/// <summary>
 	/// Represents the types of scatter charts.
 	/// </summary>
-	public class ScatterChart : ChartBase
+	public class ScatterChart<ApplicationSpecificSetting> : ChartBase<ApplicationSpecificSetting> where ApplicationSpecificSetting : class, ISizeAndPosition
 	{
 
 
 		/// <summary>
 		/// Scatter Chart Setting
 		/// </summary>
-		protected ScatterChartSetting scatterChartSetting;
+		protected ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting;
 
-		internal ScatterChart(ScatterChartSetting scatterChartSetting) : base(scatterChartSetting)
+		internal ScatterChart(ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting) : base(scatterChartSetting)
 		{
 			this.scatterChartSetting = scatterChartSetting;
 		}
@@ -25,13 +25,13 @@ namespace OpenXMLOffice.Global_2013
 		/// <summary>
 		/// Create Scatter Chart with provided settings
 		/// </summary>
-		public ScatterChart(ScatterChartSetting scatterChartSetting, ChartData[][] dataCols) : base(scatterChartSetting)
+		public ScatterChart(ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting, ChartData[][] dataCols, DataRange? dataRange = null) : base(scatterChartSetting)
 		{
 			this.scatterChartSetting = scatterChartSetting;
-			SetChartPlotArea(CreateChartPlotArea(dataCols));
+			SetChartPlotArea(CreateChartPlotArea(dataCols, dataRange));
 		}
 
-		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols)
+		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols, DataRange? dataRange)
 		{
 			if (scatterChartSetting.scatterChartTypes == ScatterChartTypes.BUBBLE)
 			{
@@ -44,8 +44,8 @@ namespace OpenXMLOffice.Global_2013
 			C.PlotArea plotArea = new();
 			plotArea.Append(CreateLayout(scatterChartSetting.plotAreaOptions?.manualLayout));
 			plotArea.Append(scatterChartSetting.scatterChartTypes == ScatterChartTypes.BUBBLE ?
-				CreateChart<C.BubbleChart>(CreateDataSeries(dataCols, scatterChartSetting.chartDataSetting)) :
-				CreateChart<C.ScatterChart>(CreateDataSeries(dataCols, scatterChartSetting.chartDataSetting)));
+				CreateChart<C.BubbleChart>(CreateDataSeries(scatterChartSetting.chartDataSetting, dataCols, dataRange)) :
+				CreateChart<C.ScatterChart>(CreateDataSeries(scatterChartSetting.chartDataSetting, dataCols, dataRange)));
 			plotArea.Append(CreateValueAxis(new ValueAxisSetting()
 			{
 				id = CategoryAxisId,

@@ -32,6 +32,7 @@ namespace OpenXMLOffice.Tests
 		public static void ClassInitialize(TestContext context)
 		{
 			excel = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
+			excel.AddSheet();
 		}
 
 		/// <summary>
@@ -196,6 +197,7 @@ namespace OpenXMLOffice.Tests
 		{
 			Excel excel1 = new("./TestFiles/basic_test.xlsx", false);
 			excel1.Save();
+			excel1.SaveAs(string.Format("../../ReadEdit-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 			Assert.IsTrue(true);
 		}
 
@@ -203,9 +205,100 @@ namespace OpenXMLOffice.Tests
 		/// Test existing file
 		/// </summary>
 		[TestMethod]
-		public void OpenExistingexcel()
+		public void OpenExistingExcel()
 		{
-			Excel excel = new("./TestFiles/basic_test.xlsx");
+			Excel excel1 = new("./TestFiles/basic_test.xlsx", true);
+			Worksheet worksheet = excel1.AddSheet("AreaChart");
+			int row = 0;
+			CreateDataCellPayload().ToList().ForEach(rowData =>
+			{
+				worksheet.SetRow(ConverterUtils.ConvertToExcelCellReference(++row, 1), rowData, new());
+			});
+			_ = worksheet.AddChart(new()
+			{
+				cellIdStart = "A1",
+				cellIdEnd = "D4"
+			}, new AreaChartSetting<ExcelSetting>()
+			{
+				applicationSpecificSetting = new()
+				{
+					from = new()
+					{
+						row = 5,
+						column = 5
+					},
+					to = new()
+					{
+						row = 20,
+						column = 20
+					}
+				}
+			});
+			worksheet = excel1.AddSheet("LineChart");
+			row = 0;
+			CreateDataCellPayload().ToList().ForEach(rowData =>
+			{
+				worksheet.SetRow(ConverterUtils.ConvertToExcelCellReference(++row, 1), rowData, new());
+			});
+			_ = worksheet.AddChart(new()
+			{
+				cellIdStart = "A1",
+				cellIdEnd = "D4"
+			}, new LineChartSetting<ExcelSetting>()
+			{
+				applicationSpecificSetting = new()
+				{
+					from = new()
+					{
+						row = 5,
+						column = 5
+					},
+					to = new()
+					{
+						row = 20,
+						column = 20
+					}
+				}
+			});
+			excel1.SaveAs(string.Format("../../Edit-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
+			Assert.IsTrue(true);
+		}
+
+		private static DataCell[][] CreateDataCellPayload(int payloadSize = 5, bool IsValueAxis = false)
+		{
+			Random random = new();
+			DataCell[][] data = new DataCell[payloadSize][];
+			data[0] = new DataCell[payloadSize];
+			for (int col = 1; col < payloadSize; col++)
+			{
+				data[0][col] = new DataCell
+				{
+					cellValue = $"Series {col}",
+					dataType = CellDataType.STRING
+				};
+			}
+			for (int row = 1; row < payloadSize; row++)
+			{
+				data[row] = new DataCell[payloadSize];
+				data[row][0] = new DataCell
+				{
+					cellValue = $"Category {row}",
+					dataType = CellDataType.STRING
+				};
+				for (int col = IsValueAxis ? 0 : 1; col < payloadSize; col++)
+				{
+					data[row][col] = new DataCell
+					{
+						cellValue = random.Next(1, 100).ToString(),
+						dataType = CellDataType.NUMBER,
+						styleSetting = new()
+						{
+							numberFormat = "0.00",
+						}
+					};
+				}
+			}
+			return data;
 		}
 
 	}

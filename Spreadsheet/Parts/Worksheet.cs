@@ -4,22 +4,25 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using OpenXMLOffice.Global_2013;
 using X = DocumentFormat.OpenXml.Spreadsheet;
+using XDR = DocumentFormat.OpenXml.Drawing.Spreadsheet;
 
 namespace OpenXMLOffice.Spreadsheet_2013
 {
 	/// <summary>
 	/// Represents a worksheet in an Excel workbook.
 	/// </summary>
-	public class Worksheet
+	public class Worksheet : Drawing
 	{
+		private readonly Excel excel;
 		private readonly X.Worksheet openXMLworksheet;
 		private readonly X.Sheet sheet;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Worksheet"/> class.
 		/// </summary>
-		public Worksheet(X.Worksheet worksheet, X.Sheet _sheet)
+		internal Worksheet(Excel excel, X.Worksheet worksheet, X.Sheet _sheet)
 		{
+			this.excel = excel;
 			openXMLworksheet = worksheet;
 			sheet = _sheet;
 		}
@@ -40,12 +43,17 @@ namespace OpenXMLOffice.Spreadsheet_2013
 			return openXMLworksheet;
 		}
 
+		internal X.SheetData GetWorkSheetData()
+		{
+			return openXMLworksheet.Elements<X.SheetData>().First();
+		}
+
 		internal WorksheetPart GetWorksheetPart()
 		{
 			return openXMLworksheet.WorksheetPart!;
 		}
 
-		internal string GetNextSlideRelationId()
+		internal string GetNextSheetPartRelationId()
 		{
 			return string.Format("rId{0}", GetWorksheetPart().Parts.Count() + 1);
 		}
@@ -124,16 +132,15 @@ namespace OpenXMLOffice.Spreadsheet_2013
 		/// </summary>
 		public void SetRow(string cellId, DataCell[] dataCells, RowProperties rowProperties)
 		{
-			X.SheetData sheetData = openXMLworksheet.Elements<X.SheetData>().First();
 			(int rowIndex, int colIndex) = ConverterUtils.ConvertFromExcelCellReference(cellId);
-			X.Row? row = sheetData.Elements<X.Row>().FirstOrDefault(r => r.RowIndex?.Value == (uint)rowIndex);
+			X.Row? row = GetWorkSheetData().Elements<X.Row>().FirstOrDefault(r => r.RowIndex?.Value == (uint)rowIndex);
 			if (row == null)
 			{
 				row = new X.Row
 				{
 					RowIndex = new UInt32Value((uint)rowIndex)
 				};
-				sheetData.AppendChild(row);
+				GetWorkSheetData().AppendChild(row);
 			}
 			if (rowProperties != null)
 			{
@@ -163,7 +170,7 @@ namespace OpenXMLOffice.Spreadsheet_2013
 						};
 						row.AppendChild(cell);
 					}
-					X.CellValues dataType = GetCellValues(DataCell.dataType);
+					X.CellValues dataType = GetCellValueType(DataCell.dataType);
 					cell.StyleIndex = DataCell.styleId ?? Styles.Instance.GetCellStyleId(DataCell.styleSetting ?? new());
 					if (dataType == X.CellValues.String)
 					{
@@ -183,13 +190,27 @@ namespace OpenXMLOffice.Spreadsheet_2013
 		/// <summary>
 		/// Gets the CellValues enumeration corresponding to the specified cell data type.
 		/// </summary>
-		private static X.CellValues GetCellValues(CellDataType cellDataType)
+		private static X.CellValues GetCellValueType(CellDataType cellDataType)
 		{
 			return cellDataType switch
 			{
 				CellDataType.DATE => X.CellValues.Date,
 				CellDataType.NUMBER => X.CellValues.Number,
 				_ => X.CellValues.String,
+			};
+		}
+
+		private static DataType GetCellDataType(EnumValue<X.CellValues>? cellValueType)
+		{
+			if (cellValueType == null)
+			{
+				return DataType.STRING;
+			}
+			return cellValueType.ToString() switch
+			{
+				"d" => DataType.DATE,
+				"n" => DataType.NUMBER,
+				_ => DataType.STRING,
 			};
 		}
 
@@ -204,21 +225,129 @@ namespace OpenXMLOffice.Spreadsheet_2013
 		/// <summary>
 		///
 		/// </summary>
-		public void AddPicture(Stream stream, ExcelPictureSetting pictureSetting)
+		public Picture? AddPicture(Stream stream, ExcelPictureSetting pictureSetting)
 		{
 			if (pictureSetting.fromCol < pictureSetting.toCol || pictureSetting.fromRow < pictureSetting.toRow)
 			{
-				_ = new Picture(this, stream, new()
+				return new Picture(this, stream, new()
 				{
 					fromCol = pictureSetting.fromCol,
 					fromRow = pictureSetting.fromRow,
 					toCol = pictureSetting.toCol,
 					toRow = pictureSetting.toRow,
 				});
-				return;
 			}
 			throw new ArgumentException("At least one cell range must be covered by the picture.");
 		}
 
+		internal DrawingsPart GetDrawingsPart()
+		{
+			return GetDrawingsPart(this);
+		}
+
+		internal XDR.WorksheetDrawing GetDrawing()
+		{
+			return GetDrawing(this);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, AreaChartSetting<ApplicationSpecificSetting> areaChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, areaChartSetting);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, BarChartSetting<ApplicationSpecificSetting> barChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, barChartSetting);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, ColumnChartSetting<ApplicationSpecificSetting> columnChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, columnChartSetting);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, LineChartSetting<ApplicationSpecificSetting> lineChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, lineChartSetting);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, PieChartSetting<ApplicationSpecificSetting> pieChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, pieChartSetting);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Chart<ApplicationSpecificSetting> AddChart<ApplicationSpecificSetting>(DataRange dataRange, ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting) where ApplicationSpecificSetting : ExcelSetting
+		{
+			ChartData[][] chartDatas = PrepareCacheData(dataRange);
+			dataRange.sheetName ??= GetSheetName();
+			return new(this, chartDatas, dataRange, scatterChartSetting);
+		}
+
+		private ChartData[][] PrepareCacheData(DataRange dataRange)
+		{
+			Worksheet? worksheet = excel.GetWorksheet(dataRange.sheetName ?? GetSheetName()) ?? throw new ArgumentException("Data Range Sheet not founds");
+			(int rowStart, int colStart) = ConverterUtils.ConvertFromExcelCellReference(dataRange.cellIdStart);
+			(int rowEnd, int colEnd) = ConverterUtils.ConvertFromExcelCellReference(dataRange.cellIdEnd);
+			List<X.Row> dataRows = GetWorkSheetData().Elements<X.Row>().Where(row => row.RowIndex?.Value >= rowStart && row.RowIndex?.Value <= rowEnd).ToList();
+			ChartData[][] chartDatas = new ChartData[rowEnd - rowStart + 1][];
+			dataRows.ForEach(row =>
+			{
+				chartDatas[(int)(row.RowIndex?.Value - rowStart)!] = new ChartData[colEnd - colStart + 1];
+				List<string> cellIds = new();
+				for (int col = colStart; col <= colEnd; col++)
+				{
+					cellIds.Add(ConverterUtils.ConvertToExcelCellReference((int)(row.RowIndex?.Value)!, col));
+				}
+				List<X.Cell> dataCells = row.Elements<X.Cell>().Where(c => cellIds.Contains(c.CellReference?.Value!)).ToList();
+				dataCells.ForEach(cell =>
+				{
+					(int _, int colIndex) = ConverterUtils.ConvertFromExcelCellReference(cell.CellReference?.Value!);
+					// TODO : Cell Value is bit confusing for value types and formula do furter research for extending the functionality
+					DataType cellDataType = GetCellDataType(cell.DataType);
+					string? cellValue = cellDataType switch
+					{
+						_ => cell.CellValue!.Text
+					};
+					if (cell.DataType?.ToString() == "s")
+					{
+						cellValue = ShareString.Instance.GetValue(int.Parse(cellValue));
+					}
+					chartDatas[(int)(row.RowIndex?.Value - rowStart)!][colIndex - colStart] = new()
+					{
+						dataType = cellDataType,
+						numberFormat = Styles.Instance.GetStyleForId(cell.StyleIndex!).numberFormat,
+						value = cellValue ?? ""
+					};
+				});
+			});
+			return chartDatas;
+		}
 	}
 }

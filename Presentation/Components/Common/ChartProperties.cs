@@ -11,12 +11,12 @@ namespace OpenXMLOffice.Presentation_2013
 	/// <summary>
 	///
 	/// </summary>
-	public class ChartProperties
+	public class ChartProperties<ApplicationSpecificSetting> where ApplicationSpecificSetting : PresentationSetting
 	{
 		/// <summary>
 		///
 		/// </summary>
-		internal readonly ChartSetting chartSetting;
+		internal readonly ChartSetting<ApplicationSpecificSetting> chartSetting;
 		/// <summary>
 		///
 		/// </summary>
@@ -28,7 +28,7 @@ namespace OpenXMLOffice.Presentation_2013
 		/// <summary>
 		///
 		/// </summary>
-		internal ChartProperties(Slide slide, ChartSetting chartSetting)
+		internal ChartProperties(Slide slide, ChartSetting<ApplicationSpecificSetting> chartSetting)
 		{
 			this.chartSetting = chartSetting;
 			currentSlide = slide;
@@ -37,7 +37,7 @@ namespace OpenXMLOffice.Presentation_2013
 		/// <summary>
 		///
 		/// </summary>
-		internal void LoadDataToExcel(DataCell[][] dataRows, Stream stream)
+		internal void WriteDataToExcel(DataCell[][] dataRows, Stream stream)
 		{
 			// Load Data To Embeded Sheet
 			Excel excel = new(stream, null);
@@ -58,7 +58,7 @@ namespace OpenXMLOffice.Presentation_2013
 		/// </returns>
 		internal (uint, uint) GetPosition()
 		{
-			return (chartSetting.x, chartSetting.y);
+			return (chartSetting.applicationSpecificSetting.x, chartSetting.applicationSpecificSetting.y);
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace OpenXMLOffice.Presentation_2013
 		/// </returns>
 		internal (uint, uint) GetSize()
 		{
-			return (chartSetting.width, chartSetting.height);
+			return (chartSetting.applicationSpecificSetting.width, chartSetting.applicationSpecificSetting.height);
 		}
 
 		/// <summary>
@@ -88,14 +88,14 @@ namespace OpenXMLOffice.Presentation_2013
 		/// </param>
 		public virtual void UpdatePosition(uint X, uint Y)
 		{
-			chartSetting.x = X;
-			chartSetting.y = Y;
+			chartSetting.applicationSpecificSetting.x = X;
+			chartSetting.applicationSpecificSetting.y = Y;
 			if (graphicFrame != null)
 			{
 				graphicFrame.Transform = new P.Transform
 				{
-					Offset = new A.Offset { X = chartSetting.x, Y = chartSetting.y },
-					Extents = new A.Extents { Cx = chartSetting.width, Cy = chartSetting.height }
+					Offset = new A.Offset { X = chartSetting.applicationSpecificSetting.x, Y = chartSetting.applicationSpecificSetting.y },
+					Extents = new A.Extents { Cx = chartSetting.applicationSpecificSetting.width, Cy = chartSetting.applicationSpecificSetting.height }
 				};
 			}
 		}
@@ -109,14 +109,14 @@ namespace OpenXMLOffice.Presentation_2013
 		/// </param>
 		public virtual void UpdateSize(uint Width, uint Height)
 		{
-			chartSetting.width = Width;
-			chartSetting.height = Height;
+			chartSetting.applicationSpecificSetting.width = Width;
+			chartSetting.applicationSpecificSetting.height = Height;
 			if (graphicFrame != null)
 			{
 				graphicFrame.Transform = new P.Transform
 				{
-					Offset = new A.Offset { X = chartSetting.x, Y = chartSetting.y },
-					Extents = new A.Extents { Cx = chartSetting.width, Cy = chartSetting.height }
+					Offset = new A.Offset { X = chartSetting.applicationSpecificSetting.x, Y = chartSetting.applicationSpecificSetting.y },
+					Extents = new A.Extents { Cx = chartSetting.applicationSpecificSetting.width, Cy = chartSetting.applicationSpecificSetting.height }
 				};
 			}
 		}
@@ -160,13 +160,13 @@ namespace OpenXMLOffice.Presentation_2013
 				Transform = new P.Transform(
 				   new A.Offset
 				   {
-					   X = chartSetting.x,
-					   Y = chartSetting.y
+					   X = chartSetting.applicationSpecificSetting.x,
+					   Y = chartSetting.applicationSpecificSetting.y
 				   },
 				   new A.Extents
 				   {
-					   Cx = chartSetting.width,
-					   Cy = chartSetting.height
+					   Cx = chartSetting.applicationSpecificSetting.width,
+					   Cy = chartSetting.applicationSpecificSetting.height
 				   }),
 				Graphic = new A.Graphic(
 				   new A.GraphicData(

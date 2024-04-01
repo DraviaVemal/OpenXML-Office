@@ -8,15 +8,15 @@ namespace OpenXMLOffice.Global_2013
 	/// <summary>
 	/// Represents the types of pie charts.
 	/// </summary>
-	public class PieChart : ChartBase
+	public class PieChart<ApplicationSpecificSetting> : ChartBase<ApplicationSpecificSetting> where ApplicationSpecificSetting : class, ISizeAndPosition
 	{
 
 		/// <summary>
 		/// The settings for the pie chart.
 		/// </summary>
-		protected PieChartSetting pieChartSetting;
+		protected PieChartSetting<ApplicationSpecificSetting> pieChartSetting;
 
-		internal PieChart(PieChartSetting pieChartSetting) : base(pieChartSetting)
+		internal PieChart(PieChartSetting<ApplicationSpecificSetting> pieChartSetting) : base(pieChartSetting)
 		{
 			this.pieChartSetting = pieChartSetting;
 		}
@@ -24,19 +24,19 @@ namespace OpenXMLOffice.Global_2013
 		/// <summary>
 		/// Create Pie Chart with provided settings
 		/// </summary>
-		public PieChart(PieChartSetting pieChartSetting, ChartData[][] dataCols) : base(pieChartSetting)
+		public PieChart(PieChartSetting<ApplicationSpecificSetting> pieChartSetting, ChartData[][] dataCols, DataRange? dataRange = null) : base(pieChartSetting)
 		{
 			this.pieChartSetting = pieChartSetting;
-			SetChartPlotArea(CreateChartPlotArea(dataCols));
+			SetChartPlotArea(CreateChartPlotArea(dataCols, dataRange));
 		}
 
-		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols)
+		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols, DataRange? dataRange)
 		{
 			C.PlotArea plotArea = new();
 			plotArea.Append(CreateLayout(pieChartSetting.plotAreaOptions?.manualLayout));
 			plotArea.Append(pieChartSetting.pieChartTypes == PieChartTypes.DOUGHNUT ?
-				CreateChart<C.DoughnutChart>(CreateDataSeries(dataCols, pieChartSetting.chartDataSetting)) :
-				CreateChart<C.PieChart>(CreateDataSeries(dataCols, pieChartSetting.chartDataSetting)));
+				CreateChart<C.DoughnutChart>(CreateDataSeries(pieChartSetting.chartDataSetting, dataCols, dataRange)) :
+				CreateChart<C.PieChart>(CreateDataSeries(pieChartSetting.chartDataSetting, dataCols, dataRange)));
 			plotArea.Append(CreateChartShapeProperties());
 			return plotArea;
 		}

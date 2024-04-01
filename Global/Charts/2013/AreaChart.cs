@@ -8,14 +8,14 @@ namespace OpenXMLOffice.Global_2013
 	/// <summary>
 	/// Aread Chart Core data
 	/// </summary>
-	public class AreaChart : ChartBase
+	public class AreaChart<ApplicationSpecificSetting> : ChartBase<ApplicationSpecificSetting> where ApplicationSpecificSetting : class, ISizeAndPosition
 	{
 		/// <summary>
 		/// Area Chart Setting
 		/// </summary>
-		protected readonly AreaChartSetting areaChartSetting;
+		protected readonly AreaChartSetting<ApplicationSpecificSetting> areaChartSetting;
 
-		internal AreaChart(AreaChartSetting areaChartSetting) : base(areaChartSetting)
+		internal AreaChart(AreaChartSetting<ApplicationSpecificSetting> areaChartSetting) : base(areaChartSetting)
 		{
 			this.areaChartSetting = areaChartSetting;
 		}
@@ -23,10 +23,10 @@ namespace OpenXMLOffice.Global_2013
 		/// <summary>
 		/// Create Area Chart with provided settings
 		/// </summary>
-		public AreaChart(AreaChartSetting areaChartSetting, ChartData[][] dataCols) : base(areaChartSetting)
+		public AreaChart(AreaChartSetting<ApplicationSpecificSetting> areaChartSetting, ChartData[][] dataCols, DataRange? dataRange = null) : base(areaChartSetting)
 		{
 			this.areaChartSetting = areaChartSetting;
-			SetChartPlotArea(CreateChartPlotArea(dataCols));
+			SetChartPlotArea(CreateChartPlotArea(dataCols, dataRange));
 		}
 
 		private C.AreaChartSeries CreateAreaChartSeries(int seriesIndex, ChartDataGrouping chartDataGrouping)
@@ -120,11 +120,11 @@ namespace OpenXMLOffice.Global_2013
 			return null;
 		}
 
-		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols)
+		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols, DataRange? dataRange)
 		{
 			C.PlotArea plotArea = new();
 			plotArea.Append(CreateLayout(areaChartSetting.plotAreaOptions?.manualLayout));
-			plotArea.Append(CreateAreaChart(CreateDataSeries(dataCols, areaChartSetting.chartDataSetting)));
+			plotArea.Append(CreateAreaChart(CreateDataSeries(areaChartSetting.chartDataSetting, dataCols, dataRange)));
 			plotArea.Append(CreateCategoryAxis(new CategoryAxisSetting()
 			{
 				id = CategoryAxisId,
