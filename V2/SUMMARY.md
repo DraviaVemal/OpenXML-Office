@@ -25,6 +25,15 @@
 
 * [Excel](spreadsheet/excel.md)
 * [Worksheet](spreadsheet/worksheet.md)
+* [Chart](spreadsheet/chart/README.md)
+  * [Area](spreadsheet/chart/area.md)
+  * [Bar](spreadsheet/chart/bar.md)
+  * [Column](spreadsheet/chart/column.md)
+  * [Line](spreadsheet/chart/line.md)
+  * [Pie](spreadsheet/chart/pie.md)
+  * [Scatter](spreadsheet/chart/scatter.md)
+  * [Combo](spreadsheet/chart/combo.md)
+  * [Waterfall](spreadsheet/chart/waterfall.md)
 * [Style](spreadsheet/style.md)
 
 ***
