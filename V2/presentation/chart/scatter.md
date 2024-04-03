@@ -23,10 +23,10 @@ Add chart method present in slide component or you can replace the chart using s
 ```csharp
 // Bare minimum
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ScatterChartSetting());
+	.AddChart(CreateDataCellPayload(), new G.ScatterChartSetting<G.PresentationSetting>());
 // Some additional samples
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ScatterChartSetting()
+	.AddChart(CreateDataCellPayload(), new G.ScatterChartSetting<G.PresentationSetting>()
 	{
 		scatterChartTypes = G.ScatterChartTypes.BUBBLE
 	});
@@ -34,7 +34,7 @@ powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 {% endtab %}
 {% endtabs %}
 
-### `ScatterChartSetting` Options
+### `ScatterChartSetting<G.PresentationSetting>` Options
 
 Contains options details extended from [`ChartSetting`](./#chartsetting-options) that are specific to scatter chart.
 

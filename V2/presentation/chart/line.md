@@ -22,10 +22,10 @@ Add chart method present in slide component or you can replace the chart using s
 {% tab title="C#" %}
 <pre class="language-csharp"><code class="lang-csharp"><strong>// Bare minimum
 </strong>owerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.LineChartSetting());
+	.AddChart(CreateDataCellPayload(), new G.LineChartSetting&#x3C;G.PresentationSetting>());
 // Some additional samples
 <strong>powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-</strong>	.AddChart(CreateDataCellPayload(), new G.LineChartSetting()
+</strong>	.AddChart(CreateDataCellPayload(), new G.LineChartSetting&#x3C;G.PresentationSetting>()
 	{
 		lineChartSeriesSettings = new(){
 			new(){
@@ -47,7 +47,7 @@ Add chart method present in slide component or you can replace the chart using s
 {% endtab %}
 {% endtabs %}
 
-### `LineChartSetting` Options
+### `LineChartSetting<G.PresentationSetting>` Options
 
 Contains options details extended from [`ChartSetting`](./#chartsetting-options) that are specific to line chart.
 

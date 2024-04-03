@@ -23,10 +23,10 @@ Add chart method present in slide component or you can replace the chart using s
 ```csharp
 // Bare minimum
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.PieChartSetting());
+	.AddChart(CreateDataCellPayload(), new G.PieChartSetting<G.PresentationSetting>());
 // Some additional samples
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.PieChartSetting()
+	.AddChart(CreateDataCellPayload(), new G.PieChartSetting<G.PresentationSetting>()
 	{
 		pieChartTypes = G.PieChartTypes.DOUGHNUT,
 		pieChartDataLabel = new()
@@ -41,7 +41,7 @@ powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 {% endtab %}
 {% endtabs %}
 
-### `PieChartSetting` Options
+### `PieChartSetting<G.PresentationSetting>` Options
 
 Contains options details extended from [`ChartSetting`](./#chartsetting-options) that are specific to pie chart.
 

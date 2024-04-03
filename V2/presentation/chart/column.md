@@ -23,10 +23,10 @@ Add chart method present in slide component or you can replace the chart using s
 ```csharp
 // Bare minimum
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting());
+	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting<G.PresentationSetting>());
 // Some additional samples
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting()
+	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting<G.PresentationSetting>()
 	{
 		titleOptions = new()
 		{
@@ -60,7 +60,7 @@ powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 {% endtab %}
 {% endtabs %}
 
-### `ColumnChartSetting` Options
+### `ColumnChartSetting<G.PresentationSetting>` Options
 
 Contains options details extended from [`ChartSetting`](./#chartsetting-options) that are specific to column chart.
 

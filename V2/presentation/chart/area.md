@@ -20,12 +20,14 @@ Add chart method present in slide component or you can replace the chart using s
 
 {% tabs %}
 {% tab title="C#" %}
-<pre class="language-csharp"><code class="lang-csharp">// Bare minimum
+<pre class="language-csharp"><code class="lang-csharp">using G = OpenXMLOffice.Global_2013;
+
+// Bare minimum
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting());
+	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting&#x3C;G.PresentationSetting>());
 <strong>// Some additional samples
 </strong><strong>powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-</strong>	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting()
+</strong>	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting&#x3C;G.PresentationSetting>()
 	{
 		areaChartTypes = G.AreaChartTypes.STACKED,
 		chartAxesOptions = new()
@@ -38,7 +40,7 @@ powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 {% endtab %}
 {% endtabs %}
 
-### `AreaChartSetting` Options
+### `AreaChartSetting<G.PresentationSetting>` Options
 
 Contains options details extended from [`ChartSetting`](./#chartsetting-options) that are specific to area chart.
 

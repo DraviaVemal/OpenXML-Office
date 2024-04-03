@@ -14,7 +14,7 @@ layout:
 
 # Chart
 
-The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` library, empowers developers to seamlessly integrate various types of charts into Excel spreadsheet. This class supports multiple chart types and configurations, allowing users to add new charts to a sheet or replace existing shapes with dynamic and data-driven visualizations.
+The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` library, empowers developers to seamlessly integrate various types of charts into Excel spreadsheet. This class supports multiple chart types and configurations, allowing users to add new charts to a sheet with dynamic and data-driven visualizations.
 
 <details>
 
@@ -57,7 +57,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [**X Y (Scatter) Chart**](scatter.md) (2013) **:**
+* [**X Y (Scatter) Chart**](scatter.md) (2013) - In Progress **:**
   * Scatter
   * Scatter Smooth Line Marker
   * Scatter Smooth Line
@@ -79,38 +79,62 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 ### Basic Code Samples
 
-&#x20;For each chart family `ChartSetting` have its releavent options and settings for customization.
+&#x20;For each chart family `ChartSetting<ExcelSetting>` have its releavent options and settings for customization.
 
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
 public void ChartSample(Excel excel)
 {
-    // Default Chart Type
-    excel.AddSlide(PresentationConstants.SlideLayoutType.BLANK).AddChart(CreateDataCellPayload(), new AreaChartSetting());
-    // Customised Chart Type
-    excel.GetSlideByIndex(0).AddChart(CreateDataCellPayload(), new AreaChartSetting()
-    {
-        AreaChartTypes = AreaChartTypes.STACKED
-    });
-    Slide slide = excel.GetSlideByIndex(1);
-    Shape shape = slide.FindShapeByText("shape_id_1");
-    shape.ReplaceChart(new Chart(slide, CreateDataCellPayload(),
-            new BarChartSetting()
-            {
-                ChartLegendOptions = new ChartLegendOptions()
-                {
-                    LegendPosition = ChartLegendOptions.LegendPositionValues.RIGHT
-                }
-            })
+	// Default Chart Type
+	Excel excel1 = new("./TestFiles/basic_test.xlsx", true);
+	Worksheet worksheet = excel1.AddSheet("AreaChart");
+	worksheet.AddChart(new()
+	{
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new AreaChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
+		{
+			from = new()
+			{
+				row = 5,
+				column = 5
+			},
+			to = new()
+			{
+				row = 20,
+				column = 20
+			}
+		}
+	});
 }
 ```
 {% endtab %}
 {% endtabs %}
 
-### `ChartSetting` Options
+### `ChartSetting<ExcelSetting>` Options
 
-<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>height</td><td>uint</td><td>This parameter precisely determines the height of the entire chart.<br>Default : 6858000</td></tr><tr><td>width</td><td>uint</td><td>This parameter precisely determines the width of the entire chart.<br>Default : 12192000</td></tr><tr><td>x</td><td>uint</td><td>This parameter precisely determines the X position of the entire chart.<br>Default: 0</td></tr><tr><td>y</td><td>uint</td><td>This parameter precisely determines the Y position of the entire chart.<br>Default : 0</td></tr></tbody></table>
+This section outlines the options available when configuring charts with `ChartSetting` using `ExcelSetting` parameters.
+
+<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>applicationSpecificSetting</td><td>&#x3C;ApplicationSpecificSetting></td><td>This is generic class setting. For Spreadsheet it is <a href="./#excelsetting-options"><code>ExcelSetting</code></a></td></tr></tbody></table>
+
+### `ExcelSetting` Options
+
+| Property | Type                                        | Details                                   |
+| -------- | ------------------------------------------- | ----------------------------------------- |
+| from     | [AnchorPosition](./#anchorposition-options) | Placement details for from starting point |
+| to       | [AnchorPosition](./#anchorposition-options) | Placement details for to Ending point     |
+
+### `AnchorPosition` Options
+
+| Property     | Type | Details   |
+| ------------ | ---- | --------- |
+| column       | uint | Default:1 |
+| columnOffset | uint | Default:0 |
+| row          | uint | Default:1 |
+| rowOffset    | uint | Default:0 |
 
 ### `ChartDataSetting` Options
 

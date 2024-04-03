@@ -24,12 +24,12 @@ Create or open a pptx file from path
 {% tab title="C#" %}
 ```csharp
 public static CreateNew(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
+    PowerPoint powerPoint = new("test.pptx", null);
     powerPoint.Save();
 }
 
 public static OpenExisting(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")),true, null);
+    PowerPoint powerPoint = new("test.pptx",true, null);
     powerPoint.SaveAs("/NewPath/file.pptx");
 }
 ```
@@ -55,7 +55,7 @@ Sample using most of the exposed functions
 {% tab title="C#" %}
 ```csharp
 public static CreateNew(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
+    PowerPoint powerPoint = new("test.pptx", null);
     // Add Blank Slide To the Blank Presentation
     // Return Slide Object that can be used to do slide level operation
     Slide slide = powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);

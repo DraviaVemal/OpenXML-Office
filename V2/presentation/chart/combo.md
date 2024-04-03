@@ -22,21 +22,21 @@ This type is bit different from previous core chart types. Combo setting act as 
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-G.ComboChartSetting comboChartSetting = new()
+G.ComboChartSetting<G.PresentationSetting> comboChartSetting = new()
 {
 	titleOptions = new()
 	{
 		title = "Combo Chart"
 	},
 };
-comboChartSetting.AddComboChartsSetting(new G.AreaChartSetting());
-comboChartSetting.AddComboChartsSetting(new G.BarChartSetting());
-comboChartSetting.AddComboChartsSetting(new G.ColumnChartSetting());
-comboChartSetting.AddComboChartsSetting(new G.LineChartSetting()
+comboChartSetting.AddComboChartsSetting(new G.AreaChartSetting<G.PresentationSetting>());
+comboChartSetting.AddComboChartsSetting(new G.BarChartSetting<G.PresentationSetting>());
+comboChartSetting.AddComboChartsSetting(new G.ColumnChartSetting<G.PresentationSetting>());
+comboChartSetting.AddComboChartsSetting(new G.LineChartSetting<G.PresentationSetting>()
 {
 	isSecondaryAxis = true
 });
-comboChartSetting.AddComboChartsSetting(new G.PieChartSetting());
+comboChartSetting.AddComboChartsSetting(new G.PieChartSetting<G.PresentationSetting>());
 
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 	.AddChart(CreateDataCellPayload(10), comboChartSetting);
@@ -46,7 +46,7 @@ Above code is example to add each data series as different type of chart grapics
 {% endtab %}
 {% endtabs %}
 
-### `ComboChartSetting` Options
+### `ComboChartSetting<G.PresentationSetting>` Options
 
 | Property              | Type             | Details                                                                                                                                                                                                          |
 | --------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

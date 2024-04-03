@@ -23,11 +23,11 @@ Base supported version for this type of chart is office 2016&#x20;
 {% tab title="C#" %}
 ```csharp
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-    .AddChart(data, new WaterfallChartSetting());
+    .AddChart(data, new WaterfallChartSetting<G.PresentationSetting>());
 ```
 {% endtab %}
 {% endtabs %}
 
-### `WaterfallChartSetting` Options
+### `WaterfallChartSetting<G.PresentationSetting>` Options
 
 At this moment waterfall supports base setting from[`ChartSetting`](./#chartsetting-options) future updates will get updated below.

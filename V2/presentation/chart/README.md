@@ -84,19 +84,24 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
+using G = OpenXMLOffice.Global_2013;
+using OpenXMLOffice.Presentation_2013;
+
 public void ChartSample(PowerPoint powerPoint)
 {
     // Default Chart Type
-    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK).AddChart(CreateDataCellPayload(), new AreaChartSetting());
+    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
+        .AddChart(CreateDataCellPayload(), new G.AreaChartSetting<G.PresentationSetting>());
     // Customised Chart Type
-    powerPoint.GetSlideByIndex(0).AddChart(CreateDataCellPayload(), new AreaChartSetting()
+    powerPoint.GetSlideByIndex(0)
+        .AddChart(CreateDataCellPayload(), new G.AreaChartSetting<G.PresentationSetting>()
     {
         AreaChartTypes = AreaChartTypes.STACKED
     });
     Slide slide = powerPoint.GetSlideByIndex(1);
     Shape shape = slide.FindShapeByText("shape_id_1");
-    shape.ReplaceChart(new Chart(slide, CreateDataCellPayload(),
-            new BarChartSetting()
+    shape.ReplaceChart(new Chart<G.PresentationSetting>(slide, CreateDataCellPayload(),
+            new G.BarChartSetting<G.PresentationSetting>()
             {
                 ChartLegendOptions = new ChartLegendOptions()
                 {
@@ -108,9 +113,13 @@ public void ChartSample(PowerPoint powerPoint)
 {% endtab %}
 {% endtabs %}
 
-### `ChartSetting` Options
+### `ChartSetting<G.PresentationSetting>` Options
 
-<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>height</td><td>uint</td><td>This parameter precisely determines the height of the entire chart.<br>Default : 6858000</td></tr><tr><td>width</td><td>uint</td><td>This parameter precisely determines the width of the entire chart.<br>Default : 12192000</td></tr><tr><td>x</td><td>uint</td><td>This parameter precisely determines the X position of the entire chart.<br>Default: 0</td></tr><tr><td>y</td><td>uint</td><td>This parameter precisely determines the Y position of the entire chart.<br>Default : 0</td></tr></tbody></table>
+<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>applicationSpecificSetting</td><td>&#x3C;ApplicationSpecificSetting></td><td>This is generic class setting. For Presentation it is <a href="./#presentationsetting-options"><code>PresentationSetting</code></a></td></tr></tbody></table>
+
+### `PresentationSetting` Options
+
+<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>height</td><td>uint</td><td>This parameter precisely determines the height of the entire chart.<br>Default : 6858000</td></tr><tr><td>width</td><td>uint</td><td>This parameter precisely determines the width of the entire chart.<br>Default : 12192000</td></tr><tr><td>x</td><td>uint</td><td>This parameter precisely determines the X position of the entire chart.<br>Default: 0</td></tr><tr><td>y</td><td>uint</td><td>This parameter precisely determines the Y position of the entire chart.<br>Default : 0</td></tr></tbody></table>
 
 ### `ChartDataSetting` Options
 
