@@ -32,7 +32,7 @@
   * [Line](spreadsheet/chart/line.md)
   * [Pie](spreadsheet/chart/pie.md)
   * [Scatter - In Progress](spreadsheet/chart/scatter-in-progress.md)
-  * [Combo - In Progress](spreadsheet/chart/combo-in-progress.md)
+  * [Combo](spreadsheet/chart/combo.md)
   * [Waterfall - In Progress](spreadsheet/chart/waterfall-in-progress.md)
 * [Style](spreadsheet/style.md)
 

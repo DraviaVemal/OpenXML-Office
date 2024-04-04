@@ -67,7 +67,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [Combo Chart](combo-in-progress.md) (2013) - In Progress :&#x20;
+* [Combo Chart](combo.md) (2013) :&#x20;
   * [Area](area.md)
   * [Bar](bar.md)
   * [Column](column.md)
@@ -118,7 +118,7 @@ public void ChartSample(Excel excel)
 
 This section outlines the options available when configuring charts with `ChartSetting` using `ExcelSetting` parameters.
 
-<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>applicationSpecificSetting</td><td>&#x3C;ApplicationSpecificSetting></td><td>This is generic class setting. For Spreadsheet it is <a href="./#excelsetting-options"><code>ExcelSetting</code></a></td></tr></tbody></table>
+<table><thead><tr><th width="218">Property</th><th width="205">Type</th><th>Details</th></tr></thead><tbody><tr><td>isSecondaryAxis</td><td>bool</td><td>If combo chart this can be used to indicate secondary axis activation.</td></tr><tr><td>chartDataSetting</td><td><a href="./#chartdatasetting-options">ChartDataSetting</a></td><td>This setting enables users to customize both the input chart data range and value from cell labels with precision.</td></tr><tr><td>chartGridLinesOptions</td><td><a href="./#chartgridlinesoptions-options">ChartGridLinesOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>chartLegendOptions</td><td><a href="./#chartlegendoptions-options">ChartLegendOptions</a></td><td>This feature offers crisp options for users to finely customize the gridline settings of the chart.</td></tr><tr><td>applicationSpecificSetting</td><td>&#x3C;ApplicationSpecificSetting></td><td>This is generic class setting. For Spreadsheet it is <a href="./#excelsetting-options"><code>ExcelSetting</code></a></td></tr></tbody></table>
 
 ### `ExcelSetting` Options
 

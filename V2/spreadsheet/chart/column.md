@@ -48,13 +48,13 @@ Worksheet worksheet = excel1.AddSheet("Column Chart");
 
 ### `ColumnChartSetting` Options
 
-Contains options details extended from [`ChartSetting`](../../presentation/chart/#chartsetting-options) that are specific to column chart.
+Contains options details extended from [`ChartSetting`](./#chartsetting-less-than-excelsetting-greater-than-options) that are specific to column chart.
 
 <table><thead><tr><th width="251">Property</th><th width="287">Type</th><th>Details</th></tr></thead><tbody><tr><td>columnChartDataLabel</td><td><a href="column.md#columnchartdatalabel-options">ColumnChartDataLabel</a></td><td>General Data label option applied for all series</td></tr><tr><td>columnChartSeriesSettings</td><td>List&#x3C;<a href="column.md#columnchartsetting-options">ColumnChartSeriesSetting</a>?></td><td>Data Series specific options are used from the list. The position on the list is matched with the data series position. you can use null to skip a series</td></tr><tr><td>columnChartTypes</td><td>ColumnChartTypes</td><td>Type of chart</td></tr><tr><td>chartAxesOptions</td><td><a href="../../presentation/chart/#chartaxesoptions-options">ChartAxesOptions</a></td><td>Chart axes options</td></tr><tr><td>columnGraphicsSetting</td><td><a href="column.md#columngraphicssetting-options">ColumnGraphicsSetting</a></td><td>Set properties related to bar placement</td></tr></tbody></table>
 
 ### `ColumnChartDataLabel` Options
 
-Contains options details extended from [`ChartDataLabel`](../../presentation/chart/#chartdatalabel-options) that are specific to column chart.
+Contains options details extended from [`ChartDataLabel`](./#chartdatalabel-options) that are specific to column chart.
 
 <table><thead><tr><th width="194">Property</th><th width="223">Type</th><th>Details</th></tr></thead><tbody><tr><td>dataLabelPosition</td><td>DataLabelPositionValues</td><td>Data Label placement options.</td></tr></tbody></table>
 
