@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Combo
+# Combo - In Progress
 
 Add chart method present in slide component or you can replace the chart using shape componenet.\
 This type is bit different from previous core chart types. Combo setting act as organiser for adding other base type chart to single chart componenet along with additional options
@@ -48,11 +48,11 @@ Above code is example to add each data series as different type of chart grapics
 
 ### `ComboChartSetting` Options
 
-| Property              | Type             | Details                                                                                                                                                                                                          |
-| --------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| secondaryAxisPosition | AxisPosition     |                                                                                                                                                                                                                  |
-| chartAxesOptions      | ChartAxesOptions |                                                                                                                                                                                                                  |
-| AddComboChartsSetting | function         | Method accepts core chart type's setting as input. This provides fexlibilty to handle all options of each chart style. [Supported List](combo.md#list-of-supported-chart-that-can-be-inserted-into-combo-chart). |
+| Property              | Type             | Details                                                                                                                                                                                                                      |
+| --------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| secondaryAxisPosition | AxisPosition     |                                                                                                                                                                                                                              |
+| chartAxesOptions      | ChartAxesOptions |                                                                                                                                                                                                                              |
+| AddComboChartsSetting | function         | Method accepts core chart type's setting as input. This provides fexlibilty to handle all options of each chart style. [Supported List](combo-in-progress.md#list-of-supported-chart-that-can-be-inserted-into-combo-chart). |
 
 <details>
 

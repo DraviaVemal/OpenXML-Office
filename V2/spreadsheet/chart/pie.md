@@ -14,27 +14,32 @@ layout:
 
 # Pie
 
-Add chart method present in slide component or you can replace the chart using shape componenet.
+Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
 ### Basic Code Sample
 
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-// Bare minimum
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.PieChartSetting());
-// Some additional samples
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.PieChartSetting()
+Worksheet worksheet = excel1.AddSheet("Line Chart");
+	worksheet.AddChart(new()
 	{
-		pieChartTypes = G.PieChartTypes.DOUGHNUT,
-		pieChartDataLabel = new()
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new PieChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
 		{
-			dataLabelPosition = G.PieChartDataLabel.DataLabelPositionValues.SHOW,
-			showCategoryName = true,
-			showValue = true,
-			separator = ". "
+			from = new()
+			{
+				row = 5,
+				column = 5
+			},
+			to = new()
+			{
+				row = 20,
+				column = 20
+			}
 		}
 	});
 ```

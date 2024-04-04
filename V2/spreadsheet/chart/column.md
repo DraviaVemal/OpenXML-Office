@@ -14,45 +14,31 @@ layout:
 
 # Column
 
-Add chart method present in slide component or you can replace the chart using shape componenet.
+Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
 ### Basic Code Sample
 
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-// Bare minimum
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting());
-// Some additional samples
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.ColumnChartSetting()
+Worksheet worksheet = excel1.AddSheet("Column Chart");
+	worksheet.AddChart(new()
 	{
-		titleOptions = new()
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new ColumnChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
 		{
-			title = "Column Chart"
-		},
-		chartLegendOptions = new G.ChartLegendOptions()
-		{
-			legendPosition = G.ChartLegendOptions.LegendPositionValues.TOP,
-			fontSize = 5
-		},
-		columnChartSeriesSettings = new(){
-			null,
-			new(){
-				columnChartDataPointSettings = new(){
-				null,
-				new(){
-					fillColor = "FF0000"
-				},
-				new(){
-					fillColor = "00FF00"
-				},
+			from = new()
+			{
+				row = 5,
+				column = 5
 			},
-				fillColor= "AABBCC"
-			},
-			new(){
-				fillColor= "CCBBAA"
+			to = new()
+			{
+				row = 20,
+				column = 20
 			}
 		}
 	});

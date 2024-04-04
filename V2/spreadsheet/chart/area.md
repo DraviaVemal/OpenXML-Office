@@ -14,27 +14,35 @@ layout:
 
 # Area
 
-Add chart method present in slide component or you can replace the chart using shape componenet.
+Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
 ### Basic Code Sample
 
 {% tabs %}
 {% tab title="C#" %}
-<pre class="language-csharp"><code class="lang-csharp">// Bare minimum
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting());
-<strong>// Some additional samples
-</strong><strong>powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-</strong>	.AddChart(CreateDataCellPayload(), new G.AreaChartSetting()
+```csharp
+Worksheet worksheet = excel1.AddSheet("AreaChart");
+	worksheet.AddChart(new()
 	{
-		areaChartTypes = G.AreaChartTypes.STACKED,
-		chartAxesOptions = new()
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new AreaChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
 		{
-			horizontalFontSize = 20,
-			verticalFontSize = 25
+			from = new()
+			{
+				row = 5,
+				column = 5
+			},
+			to = new()
+			{
+				row = 20,
+				column = 20
+			}
 		}
 	});
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

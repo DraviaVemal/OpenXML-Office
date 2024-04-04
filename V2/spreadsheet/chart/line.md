@@ -14,36 +14,35 @@ layout:
 
 # Line
 
-Add chart method present in slide component or you can replace the chart using shape componenet.
+Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
 ### Basic Code Sample
 
 {% tabs %}
 {% tab title="C#" %}
-<pre class="language-csharp"><code class="lang-csharp"><strong>// Bare minimum
-</strong>owerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.LineChartSetting());
-// Some additional samples
-<strong>powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-</strong>	.AddChart(CreateDataCellPayload(), new G.LineChartSetting()
+```csharp
+Worksheet worksheet = excel1.AddSheet("Line Chart");
+	worksheet.AddChart(new()
 	{
-		lineChartSeriesSettings = new(){
-			new(){
-				lineChartLineFormat = new(){
-					dashType = G.DrawingPresetLineDashValues.DASH_DOT,
-					lineColor = "FF0000",
-					beginArrowValues= G.DrawingBeginArrowValues.ARROW,
-					endArrowValues= G.DrawingEndArrowValues.TRIANGLE,
-					lineStartWidth = G.LineWidthValues.MEDIUM,
-					lineEndWidth = G.LineWidthValues.LARGE,
-					outlineCapTypeValues = G.OutlineCapTypeValues.ROUND,
-					outlineLineTypeValues = G.OutlineLineTypeValues.DOUBLE,
-					width = 5
-				}
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new LineChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
+		{
+			from = new()
+			{
+				row = 5,
+				column = 5
+			},
+			to = new()
+			{
+				row = 20,
+				column = 20
 			}
 		}
 	});
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

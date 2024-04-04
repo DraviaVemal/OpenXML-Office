@@ -14,36 +14,31 @@ layout:
 
 # Bar
 
-Add chart method present in slide component or you can replace the chart using shape componenet.
+Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
 ### Basic Code Sample
 
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-// Bare minimum
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.BarChartSetting());
-// Some additional samples
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(), new G.BarChartSetting()
+Worksheet worksheet = excel1.AddSheet("Bar Chart");
+	worksheet.AddChart(new()
 	{
-		chartAxesOptions = new()
+		cellIdStart = "A1",
+		cellIdEnd = "D4"
+	}, new BarChartSetting<ExcelSetting>()
+	{
+		applicationSpecificSetting = new()
 		{
-			isHorizontalAxesEnabled = false,
-		},
-		barChartDataLabel = new G.BarChartDataLabel()
-		{
-			dataLabelPosition = G.BarChartDataLabel.DataLabelPositionValues.INSIDE_END,
-			showValue = true,
-		},
-		barChartSeriesSettings = new(){
-			new(),
-			new(){
-				barChartDataLabel = new G.BarChartDataLabel(){
-					dataLabelPosition = G.BarChartDataLabel.DataLabelPositionValues.OUTSIDE_END,
-					showCategoryName= true
-				}
+			from = new()
+			{
+				row = 5,
+				column = 5
+			},
+			to = new()
+			{
+				row = 20,
+				column = 20
 			}
 		}
 	});

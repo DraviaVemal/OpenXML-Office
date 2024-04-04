@@ -31,9 +31,9 @@
   * [Column](spreadsheet/chart/column.md)
   * [Line](spreadsheet/chart/line.md)
   * [Pie](spreadsheet/chart/pie.md)
-  * [Scatter](spreadsheet/chart/scatter.md)
-  * [Combo](spreadsheet/chart/combo.md)
-  * [Waterfall](spreadsheet/chart/waterfall.md)
+  * [Scatter - In Progress](spreadsheet/chart/scatter-in-progress.md)
+  * [Combo - In Progress](spreadsheet/chart/combo-in-progress.md)
+  * [Waterfall - In Progress](spreadsheet/chart/waterfall-in-progress.md)
 * [Style](spreadsheet/style.md)
 
 ***

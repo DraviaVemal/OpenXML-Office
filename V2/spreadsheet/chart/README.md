@@ -57,7 +57,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [**X Y (Scatter) Chart**](scatter.md) (2013) - In Progress **:**
+* [**X Y (Scatter) Chart**](scatter-in-progress.md) (2013) - In Progress **:**
   * Scatter
   * Scatter Smooth Line Marker
   * Scatter Smooth Line
@@ -67,7 +67,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [Combo Chart](combo.md) (2013) :&#x20;
+* [Combo Chart](combo-in-progress.md) (2013) - In Progress :&#x20;
   * [Area](area.md)
   * [Bar](bar.md)
   * [Column](column.md)
