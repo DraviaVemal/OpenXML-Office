@@ -16,6 +16,8 @@ layout:
 
 Add chart method present in slide component or you can replace the chart using shape componenet.
 
+<figure><img src="../../.gitbook/assets/Screenshot 2024-04-04 103724.png" alt="" width="375"><figcaption></figcaption></figure>
+
 ### Basic Code Sample
 
 {% tabs %}

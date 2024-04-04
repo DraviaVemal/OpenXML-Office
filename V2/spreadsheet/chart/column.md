@@ -16,6 +16,8 @@ layout:
 
 Add chart method present in worksheet component. By default the anchor is at 1,1 aka A1 cell.
 
+<figure><img src="../../.gitbook/assets/Screenshot 2024-04-04 102832.png" alt=""><figcaption></figcaption></figure>
+
 ### Basic Code Sample
 
 {% tabs %}

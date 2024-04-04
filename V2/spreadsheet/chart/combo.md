@@ -17,6 +17,8 @@ layout:
 Add chart method present in worksheet component.\
 This type is bit different from previous core chart types. Combo setting act as organiser for adding other base type chart to single chart componenet along with additional options
 
+<figure><img src="../../.gitbook/assets/Screenshot 2024-04-04 103511.png" alt=""><figcaption></figcaption></figure>
+
 ### Basic Code Sample
 
 {% tabs %}
@@ -29,6 +31,7 @@ CreateDataCellPayload().ToList().ForEach(rowData =>
 });
 ComboChartSetting<ExcelSetting> comboChartSetting = new()
 {
+	secondaryAxisPosition = AxisPosition.TOP,
 	applicationSpecificSetting = new()
 	{
 		from = new()
@@ -49,11 +52,11 @@ comboChartSetting.AddComboChartsSetting(new LineChartSetting<ExcelSetting>()
 });
 comboChartSetting.AddComboChartsSetting(new BarChartSetting<ExcelSetting>()
 {
+	isSecondaryAxis = true,
 	applicationSpecificSetting = new()
 });
 comboChartSetting.AddComboChartsSetting(new ColumnChartSetting<ExcelSetting>()
 {
-	isSecondaryAxis = true,
 	applicationSpecificSetting = new()
 });
 worksheet.AddChart(new()

@@ -17,6 +17,8 @@ layout:
 Add chart method present in slide component or you can replace the chart using shape componenet.\
 Base supported version for this type of chart is office 2016&#x20;
 
+<figure><img src="../../.gitbook/assets/Screenshot 2024-04-04 105039.png" alt=""><figcaption></figcaption></figure>
+
 ### Basic Code Sample
 
 {% tabs %}
