@@ -53,7 +53,7 @@ Once Installed the package should be direct use availabel like below example. Mo
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-using OpenXMLOffice.Presentation_2013;
+using OpenXMLOffice.Presentation_2007;
 
 public static main(){
     PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
@@ -67,7 +67,7 @@ public static main(){
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-using OpenXMLOffice.Spreadsheet_2013;
+using OpenXMLOffice.Spreadsheet_2007;
 
 public static main(){
     Excel excel = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
