@@ -20,28 +20,37 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
 
 <summary>List of supported charts</summary>
 
-* [**Area Chart**](area.md) (2013) **:**
+* [**Area Chart**](area.md) (2007) **:**
   * Cluster
   * Stacked
   * 100% Stacked
+  * Cluster 3D
+  * Stacket 3D
+  * 100% Stacked 3D
 
 <!---->
 
-* [**Bar Chart**](bar.md) (2013) **:**
+* [**Bar Chart**](bar.md) (2007) **:**
   * Cluster
   * Stacked
   * 100% Stacked
+  * Cluster 3D
+  * Stacket 3D
+  * 100% Stacked 3D
 
 <!---->
 
-* [**Column Chart**](column.md) (2013) **:**
+* [**Column Chart**](column.md) (2007) **:**
   * Cluster
   * Stacked
   * 100% Stacked
+  * Cluster 3D
+  * Stacket 3D
+  * 100% Stacked 3D
 
 <!---->
 
-* [**Line Chart**](line.md) (2013) **:**
+* [**Line Chart**](line.md) (2007) **:**
   * Cluster
   * Stacked
   * 100% Stacked
@@ -51,13 +60,14 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
 
 <!---->
 
-* [**Pie Chart**](pie.md) (2013) **:**
+* [**Pie Chart**](pie.md) (2007) **:**
   * Pie
+  * Pie 3D
   * Doughnut
 
 <!---->
 
-* [**X Y (Scatter) Chart**](scatter.md) (2013) **:**
+* [**X Y (Scatter) Chart**](scatter.md) (2007) **:**
   * Scatter
   * Scatter Smooth Line Marker
   * Scatter Smooth Line
@@ -67,7 +77,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
 
 <!---->
 
-* [Combo Chart](combo.md) (2013) :&#x20;
+* [Combo Chart](combo.md) (2007) :&#x20;
   * [Area](area.md)
   * [Bar](bar.md)
   * [Column](column.md)
@@ -84,8 +94,8 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-using G = OpenXMLOffice.Global_2013;
-using OpenXMLOffice.Presentation_2013;
+using G = OpenXMLOffice.Global_2007;
+using OpenXMLOffice.Presentation_2007;
 
 public void ChartSample(PowerPoint powerPoint)
 {

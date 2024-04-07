@@ -22,7 +22,7 @@ Add chart method present in slide component or you can replace the chart using s
 
 {% tabs %}
 {% tab title="C#" %}
-<pre class="language-csharp"><code class="lang-csharp">using G = OpenXMLOffice.Global_2013;
+<pre class="language-csharp"><code class="lang-csharp">using G = OpenXMLOffice.Global_2007;
 
 // Bare minimum
 powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
