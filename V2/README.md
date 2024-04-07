@@ -1,26 +1,79 @@
 ---
-layout:
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
+description: >-
+  The page furnishes comprehensive installation instructions, guiding you
+  through the process of incorporating the package dependency.
 ---
 
-# Introduction
+# Getting Started
 
-Create Presentation (pptx), Spreadsheet (xlsx) & Word (docx) file with ease.
+## Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
 
-1. **Advanced .NET Library**: OpenXMLOffice utilizes the power of OpenXML SDK 3.0, focusing on PowerPoint, Excel, and Word files to streamline document creation and manipulation.
-2. **Developer-Centric Mission**: Our mission is to enhance the document creation experience for developers by providing intuitive namespaces, classes, and utilities.
-3. **Efficient and User-Friendly**: The library is designed for maximum efficiency and ease of use, ensuring a seamless workflow for developers.
-4. **Microsoft Office Support**: A minimum Microsoft Office support version of 2007 is required for optimal compatibility.
-5. **Multi-Language Support (Roadmap)**: The foundation DLL is developed in .NET, with capabilities seamlessly extended to languages such as C#, Go, NodeJS, and Python.
-6. **Language-Specific DLL Interface Wrappers (Roadmap)**: We distribute language-specific DLL interface wrappers, facilitating effortless integration into each language's major package management system.
-7. **Streamlined Development**: Developers can leverage these packages for streamlined code IDE auto-completion and in-process execution without additional dependencies.
-8. **Consistent Functionality and Performance**: This approach ensures a consistent level of functionality and performance across different languages, making development a smooth and efficient experience.
+{% tabs %}
+{% tab title="C#" %}
+The library is available on NuGet. You can install it using the following command
+
+```shell
+#Using Package Manager
+Install-Package OpenXMLOffice
+```
+
+<pre class="language-shell"><code class="lang-shell">#Using .NET CLI
+<strong>dotnet add package OpenXMLOffice.Presentation
+</strong></code></pre>
+
+```bash
+# For Pre Release
+dotnet add package OpenXMLOffice.Presentation --prerelease
+```
+
+```bash
+#Using .NET CLI
+dotnet add package OpenXMLOffice.Spreadsheet
+```
+
+```bash
+# For Pre Release
+dotnet add package OpenXMLOffice.Spreadsheet --prerelease
+```
+{% endtab %}
+{% endtabs %}
+
+### Package Version Details
+
+{% tabs %}
+{% tab title="C#" %}
+The official release NuGet packages for OpenXMLOffice on NuGet.org:
+
+<table><thead><tr><th width="269">Package</th><th width="137" align="center">Dev Status</th><th width="145" align="center">Download</th><th align="center">Prerelease</th></tr></thead><tbody><tr><td>OpenXMLOffice.Presentation</td><td align="center">Active</td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Presentation.svg" alt="NuGet"></a></td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Presentation.svg" alt="NuGet"></a></td></tr><tr><td>OpenXMLOffice.Spreadsheet</td><td align="center">Active</td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Spreadsheet.svg" alt="NuGet"></a></td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Spreadsheet.svg" alt="NuGet"></a></td></tr><tr><td>OpenXMLOffice.Document</td><td align="center">Not Active</td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Document.svg" alt="NuGet"></a></td><td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Document.svg" alt="NuGet"></a></td></tr></tbody></table>
+{% endtab %}
+{% endtabs %}
+
+Once Installed the package should be direct use availabel like below example. More samples can be seen in test project's of the repo or check other parts of the documents
+
+{% tabs %}
+{% tab title="C#" %}
+```csharp
+using OpenXMLOffice.Presentation_2013;
+
+public static main(){
+    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
+    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
+    powerPoint.save();
+}
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="C#" %}
+```csharp
+using OpenXMLOffice.Spreadsheet_2013;
+
+public static main(){
+    Excel excel = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
+    excel.AddSheet("Sheet1");
+    excel.save();
+}
+```
+{% endtab %}
+{% endtabs %}
