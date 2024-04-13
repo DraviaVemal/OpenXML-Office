@@ -1,6 +1,7 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
 
 using C = DocumentFormat.OpenXml.Drawing.Charts;
+using OpenXMLOffice.Global_2013;
 
 namespace OpenXMLOffice.Global_2007
 {
@@ -295,10 +296,7 @@ namespace OpenXMLOffice.Global_2007
 		/// </summary>
 		public StrikeValues strikeValues = StrikeValues.NO_STRIKE;
 
-		/// <summary>
-		/// Determines whether to show the value from a column in the chart.
-		/// </summary>
-		public bool showValueFromColumn = false;
+
 	}
 
 	/// <summary>
@@ -306,7 +304,7 @@ namespace OpenXMLOffice.Global_2007
 	/// </summary>
 	public class ChartDataSetting
 	{
-
+		internal Dictionary<uint, uint> valueFromColumn = new();
 		/// <summary>
 		/// Set 0 To Use Till End
 		/// </summary>
@@ -333,10 +331,10 @@ namespace OpenXMLOffice.Global_2007
 		internal bool is3Ddata;
 
 		/// <summary>
-		/// Key For Data Column Value For Data Label Column If Data Label Column Are Present
-		/// Inbetween and Used in the list it will be auto skipped By Data Column
+		/// Use 2013 Version Data Label Option
 		/// </summary>
-		public Dictionary<uint, uint> valueFromColumn = new();
+		/// <remarks>This Proprty May get updated in future be in lookout.</remarks>
+		public AdvancedDataLabel advancedDataLabel = new();
 	}
 
 	/// <summary>
@@ -519,35 +517,35 @@ namespace OpenXMLOffice.Global_2007
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public class AnchorPosition
 	{
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public uint column = 1;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public uint columnOffset = 0;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public uint row = 1;
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public uint rowOffset = 0;
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public interface ISizeAndPosition { }
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public class PresentationSetting : ISizeAndPosition
 	{
@@ -574,17 +572,17 @@ namespace OpenXMLOffice.Global_2007
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public class ExcelSetting : ISizeAndPosition
 	{
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public AnchorPosition from = new();
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public AnchorPosition to = new();
 	}
@@ -629,7 +627,7 @@ namespace OpenXMLOffice.Global_2007
 		public ChartTitleModel? titleOptions;
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public required ApplicationSpecificSetting applicationSpecificSetting;
 
