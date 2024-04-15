@@ -1,8 +1,9 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using OpenXMLOffice.Global_2013;
 using C = DocumentFormat.OpenXml.Drawing.Charts;
-
 namespace OpenXMLOffice.Global_2007
 {
 	/// <summary>
@@ -14,25 +15,23 @@ namespace OpenXMLOffice.Global_2007
 		///
 		/// </summary>
 		public ComboChartSetting<ApplicationSpecificSetting> ComboChartSetting { get; private set; }
-
 		/// <summary>
 		///
 		/// </summary>
-		public ComboChart(ComboChartSetting<ApplicationSpecificSetting> comboChartSetting, ChartData[][] dataCols, DataRange? dataRange = null) : base(comboChartSetting)
+		public ComboChart(ComboChartSetting<ApplicationSpecificSetting> comboChartSetting, ChartData[][] dataCols, DataRange dataRange = null) : base(comboChartSetting)
 		{
 			ComboChartSetting = comboChartSetting;
 			SetChartPlotArea(CreateChartPlotArea(dataCols, dataRange));
 		}
-
-		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols, DataRange? dataRange)
+		private C.PlotArea CreateChartPlotArea(ChartData[][] dataCols, DataRange dataRange)
 		{
 			bool isSecondaryAxisActive = false;
 			if (ComboChartSetting.ComboChartsSettingList.Count == 0)
 			{
 				throw new ArgumentException("Combo Chart Series Settings is empty");
 			}
-			C.PlotArea plotArea = new();
-			plotArea.Append(CreateLayout(ComboChartSetting.plotAreaOptions?.manualLayout));
+			C.PlotArea plotArea = new C.PlotArea();
+			plotArea.Append(CreateLayout(ComboChartSetting.plotAreaOptions != null ? ComboChartSetting.plotAreaOptions.manualLayout : null));
 			uint chartPosition = 0;
 			ComboChartSetting.ComboChartsSettingList.ForEach(chartSetting =>
 			{
@@ -42,40 +41,56 @@ namespace OpenXMLOffice.Global_2007
 					((ChartSetting<ApplicationSpecificSetting>)chartSetting).categoryAxisId = SecondaryCategoryAxisId;
 					((ChartSetting<ApplicationSpecificSetting>)chartSetting).valueAxisId = SecondaryValueAxisId;
 				}
-				((ChartSetting<ApplicationSpecificSetting>)chartSetting).chartDataSetting = new();
-				if (chartSetting is AreaChartSetting<ApplicationSpecificSetting> areaChartSetting)
+				((ChartSetting<ApplicationSpecificSetting>)chartSetting).chartDataSetting = new ChartDataSetting();
+				AreaChartSetting<ApplicationSpecificSetting> areaChartSetting = chartSetting as AreaChartSetting<ApplicationSpecificSetting>;
+				if (areaChartSetting != null)
 				{
-					AreaChart<ApplicationSpecificSetting> areaChart = new(areaChartSetting);
+					AreaChart<ApplicationSpecificSetting> areaChart = new AreaChart<ApplicationSpecificSetting>(areaChartSetting);
 					plotArea.Append(areaChart.CreateAreaChart<C.AreaChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
 				}
-				if (chartSetting is BarChartSetting<ApplicationSpecificSetting> barChartSetting)
+				BarChartSetting<ApplicationSpecificSetting> barChartSetting = chartSetting as BarChartSetting<ApplicationSpecificSetting>;
+				if (barChartSetting != null)
 				{
-					BarChart<ApplicationSpecificSetting> barChart = new(barChartSetting);
+					BarChart<ApplicationSpecificSetting> barChart = new BarChart<ApplicationSpecificSetting>(barChartSetting);
 					plotArea.Append(barChart.CreateBarChart<C.BarChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
 				}
-				if (chartSetting is ColumnChartSetting<ApplicationSpecificSetting> columnChartSetting)
+				ColumnChartSetting<ApplicationSpecificSetting> columnChartSetting = chartSetting as ColumnChartSetting<ApplicationSpecificSetting>;
+				if (columnChartSetting != null)
 				{
-					ColumnChart<ApplicationSpecificSetting> columnChart = new(columnChartSetting);
+					ColumnChart<ApplicationSpecificSetting> columnChart = new ColumnChart<ApplicationSpecificSetting>(columnChartSetting);
 					plotArea.Append(columnChart.CreateColumnChart<C.BarChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
 				}
-				if (chartSetting is LineChartSetting<ApplicationSpecificSetting> lineChartSetting)
+				LineChartSetting<ApplicationSpecificSetting> lineChartSetting = chartSetting as LineChartSetting<ApplicationSpecificSetting>;
+				if (lineChartSetting != null)
 				{
-					LineChart<ApplicationSpecificSetting> lineChart = new(lineChartSetting);
+					LineChart<ApplicationSpecificSetting> lineChart = new LineChart<ApplicationSpecificSetting>(lineChartSetting);
 					plotArea.Append(lineChart.CreateLineChart(GetChartPositionData(dataCols, chartPosition, dataRange)));
 				}
-				if (chartSetting is PieChartSetting<ApplicationSpecificSetting> pieChartSetting)
+				PieChartSetting<ApplicationSpecificSetting> pieChartSetting = chartSetting as PieChartSetting<ApplicationSpecificSetting>;
+				if (pieChartSetting != null)
 				{
-					PieChart<ApplicationSpecificSetting> pieChart = new(pieChartSetting);
-					plotArea.Append(pieChartSetting.pieChartType == PieChartTypes.DOUGHNUT ?
-						pieChart.CreateChart<C.DoughnutChart>(GetChartPositionData(dataCols, chartPosition, dataRange)) :
-						pieChart.CreateChart<C.PieChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					PieChart<ApplicationSpecificSetting> pieChart = new PieChart<ApplicationSpecificSetting>(pieChartSetting);
+					if (pieChartSetting.pieChartType == PieChartTypes.DOUGHNUT)
+					{
+						plotArea.Append(pieChart.CreateChart<C.DoughnutChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					}
+					else
+					{
+						plotArea.Append(pieChart.CreateChart<C.PieChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					}
 				}
-				if (chartSetting is ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting)
+				ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting = chartSetting as ScatterChartSetting<ApplicationSpecificSetting>;
+				if (scatterChartSetting != null)
 				{
-					ScatterChart<ApplicationSpecificSetting> scatterChart = new(scatterChartSetting);
-					plotArea.Append(scatterChartSetting.scatterChartType == ScatterChartTypes.BUBBLE ?
-						scatterChart.CreateChart<C.BubbleChart>(GetChartPositionData(dataCols, chartPosition, dataRange)) :
-						scatterChart.CreateChart<C.ScatterChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					ScatterChart<ApplicationSpecificSetting> scatterChart = new ScatterChart<ApplicationSpecificSetting>(scatterChartSetting);
+					if (scatterChartSetting.scatterChartType == ScatterChartTypes.BUBBLE)
+					{
+						plotArea.Append(scatterChart.CreateChart<C.BubbleChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					}
+					else
+					{
+						plotArea.Append(scatterChart.CreateChart<C.ScatterChart>(GetChartPositionData(dataCols, chartPosition, dataRange)));
+					}
 				}
 				chartPosition++;
 			});
@@ -119,11 +134,10 @@ namespace OpenXMLOffice.Global_2007
 			plotArea.Append(CreateChartShapeProperties());
 			return plotArea;
 		}
-
-		private List<ChartDataGrouping> GetChartPositionData(ChartData[][] dataCols, uint chartPosition, DataRange? dataRange)
+		private List<ChartDataGrouping> GetChartPositionData(ChartData[][] dataCols, uint chartPosition, DataRange dataRange)
 		{
 			List<ChartDataGrouping> chartDataGroupings = CreateDataSeries(ComboChartSetting.chartDataSetting, dataCols, dataRange);
-			return new() { chartDataGroupings.ElementAt((int)chartPosition) };
+			return new List<ChartDataGrouping>() { chartDataGroupings.ElementAt((int)chartPosition) };
 		}
 	}
 }

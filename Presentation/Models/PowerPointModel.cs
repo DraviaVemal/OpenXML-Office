@@ -1,7 +1,6 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
+using System.Collections.Generic;
 using OpenXMLOffice.Global_2007;
-
 namespace OpenXMLOffice.Presentation_2007
 {
 	/// <summary>
@@ -12,22 +11,19 @@ namespace OpenXMLOffice.Presentation_2007
 		/// <summary>
 		/// Gets or sets the presentation settings.
 		/// </summary>
-		public PresentationSettings settings = new();
-
+		public PresentationSettings settings = new PresentationSettings();
 		/// <summary>
 		/// Gets or sets the slide masters of the presentation.
 		/// </summary>
 		/// <remarks>
 		/// TODO: Multi Theme Slide Master Support
 		/// </remarks>
-		public Dictionary<string, PresentationSlideMaster>? slideMasters;
-
+		public Dictionary<string, PresentationSlideMaster> slideMasters;
 		/// <summary>
 		/// Gets or sets the theme of the presentation.
 		/// </summary>
-		public ThemePallet theme = new();
+		public ThemePallet theme = new ThemePallet();
 	}
-
 	/// <summary>
 	/// Represents the settings of a presentation.
 	/// </summary>
@@ -37,13 +33,11 @@ namespace OpenXMLOffice.Presentation_2007
 		/// Gets or sets a value indicating whether the presentation has multiple slide masters.
 		/// </summary>
 		public bool isMultiSlideMasterPartPresentation = false;
-
 		/// <summary>
 		/// Gets or sets a value indicating whether the presentation has multiple themes.
 		/// </summary>
 		public bool isMultiThemePresentation = false;
 	}
-
 	/// <summary>
 	/// Represents a slide master in a presentation.
 	/// </summary>
@@ -52,9 +46,8 @@ namespace OpenXMLOffice.Presentation_2007
 		/// <summary>
 		/// Gets or sets the theme of the slide master.
 		/// </summary>
-		public ThemePallet theme = new();
+		public ThemePallet theme = new ThemePallet();
 	}
-
 	internal class PresentationInfo
 	{
 		public bool isEditable = true;

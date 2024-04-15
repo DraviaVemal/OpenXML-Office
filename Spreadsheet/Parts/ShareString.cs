@@ -1,7 +1,9 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using LiteDB;
-
 namespace OpenXMLOffice.Spreadsheet_2007
 {
 	/// <summary>
@@ -9,11 +11,8 @@ namespace OpenXMLOffice.Spreadsheet_2007
 	/// </summary>
 	internal class ShareStringService : IDisposable
 	{
-
-		private static readonly LiteDatabase liteDatabase = new(Path.ChangeExtension(Path.GetTempFileName(), "db"));
-
+		private static readonly LiteDatabase liteDatabase = new LiteDatabase(Path.ChangeExtension(Path.GetTempFileName(), "db"));
 		private readonly ILiteCollection<StringRecord> stringCollection;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ShareStringService"/> class.
 		/// </summary>
@@ -22,7 +21,6 @@ namespace OpenXMLOffice.Spreadsheet_2007
 			stringCollection = liteDatabase.GetCollection<StringRecord>("StringRecord");
 			stringCollection.EnsureIndex("StringRecord.Value");
 		}
-
 		/// <summary>
 		/// Releases all resources used by the <see cref="ShareStringService"/> class.
 		/// </summary>
@@ -30,7 +28,6 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		{
 			liteDatabase.Dispose();
 		}
-
 		/// <summary>
 		/// Gets the index of the specified value in the shared string collection.
 		/// </summary>
@@ -42,9 +39,13 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		/// </returns>
 		public int? GetIndex(string value)
 		{
-			return stringCollection.FindOne(col => col.Value == value)?.Id - 1;
+			StringRecord stringRecord = stringCollection.FindOne(col => col.Value == value);
+			if (stringRecord != null)
+			{
+				return stringRecord.Id;
+			}
+			return null;
 		}
-
 		/// <summary>
 		/// Gets all the records in the shared string collection.
 		/// </summary>
@@ -55,7 +56,6 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		{
 			return stringCollection.Query().OrderBy(x => x.Id).Select(x => x.Value).ToList();
 		}
-
 		/// <summary>
 		/// Gets the value at the specified index in the shared string collection.
 		/// </summary>
@@ -65,11 +65,11 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		/// <returns>
 		/// The value at the specified index if found; otherwise, null.
 		/// </returns>
-		public string? GetValue(int index)
+		public string GetValue(int index)
 		{
-			return stringCollection.FindById(index)?.Value;
+			StringRecord stringRecord = stringCollection.FindById(index);
+			return stringRecord != null ? stringRecord.Value : null;
 		}
-
 		/// <summary>
 		/// Inserts a new value into the shared string collection.
 		/// </summary>
@@ -80,7 +80,6 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		{
 			stringCollection.Insert(new StringRecord(Data));
 		}
-
 		/// <summary>
 		/// Inserts multiple values into the shared string collection.
 		/// </summary>
@@ -91,7 +90,6 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		{
 			stringCollection.InsertBulk(data.Select(item => new StringRecord(item)));
 		}
-
 		/// <summary>
 		/// Inserts a unique value into the shared string collection.
 		/// </summary>
@@ -111,7 +109,5 @@ namespace OpenXMLOffice.Spreadsheet_2007
 			BsonValue DocId = stringCollection.Insert(new StringRecord(data));
 			return (int)DocId.AsInt64 - 1;
 		}
-
-
 	}
 }

@@ -1,5 +1,7 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 namespace OpenXMLOffice.Global_2007
 {
 	/// <summary>
@@ -7,7 +9,6 @@ namespace OpenXMLOffice.Global_2007
 	/// </summary>
 	public class ComboChartSetting<ApplicationSpecificSetting> : ChartSetting<ApplicationSpecificSetting> where ApplicationSpecificSetting : class, ISizeAndPosition
 	{
-
 		/// <summary>
 		/// Secondary Axis postion
 		/// </summary>
@@ -15,7 +16,7 @@ namespace OpenXMLOffice.Global_2007
 		/// <summary>
 		/// Add Chart Series Setting Using AddComboChartsSetting Method
 		/// </summary>
-		public List<object> ComboChartsSettingList { get; private set; } = new();
+		public List<object> ComboChartsSettingList = new List<object>();
 		/// <summary>
 		///
 		/// </summary>
@@ -27,7 +28,6 @@ namespace OpenXMLOffice.Global_2007
 			}
 			ComboChartsSettingList.Add(areaChartSetting);
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -39,7 +39,6 @@ namespace OpenXMLOffice.Global_2007
 			}
 			ComboChartsSettingList.Add(barChartSetting);
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -51,7 +50,6 @@ namespace OpenXMLOffice.Global_2007
 			}
 			ComboChartsSettingList.Add(columnChartSetting);
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -63,7 +61,6 @@ namespace OpenXMLOffice.Global_2007
 			}
 			ComboChartsSettingList.Add(lineChartSetting);
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -75,7 +72,6 @@ namespace OpenXMLOffice.Global_2007
 			}
 			ComboChartsSettingList.Add(pieChartSetting);
 		}
-
 		// /// <summary>
 		// ///
 		// /// </summary>
@@ -87,17 +83,14 @@ namespace OpenXMLOffice.Global_2007
 		// 	}
 		// 	ComboChartsSettingList.Add(scatterChartSetting);
 		// }
-
 		/// <summary>
 		/// The options for the axes of the chart.
 		/// </summary>
-		public ChartAxesOptions chartAxesOptions = new();
-
+		public ChartAxesOptions chartAxesOptions = new ChartAxesOptions();
 		/// <summary>
 		/// The options for the axis of the chart.
 		/// </summary>
-		public ChartAxisOptions chartAxisOptions = new();
-
+		public ChartAxisOptions chartAxisOptions = new ChartAxisOptions();
 		private bool CheckSecondaryAxisAlreadyUsed()
 		{
 			return ComboChartsSettingList.Select(val => ((ChartSetting<ApplicationSpecificSetting>)val).isSecondaryAxis).Count(v => v) > 1;

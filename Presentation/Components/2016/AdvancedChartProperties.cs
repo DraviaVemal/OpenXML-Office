@@ -1,5 +1,4 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
 using System.Runtime;
 using DocumentFormat.OpenXml;
 using OpenXMLOffice.Global_2007;
@@ -7,7 +6,7 @@ using OpenXMLOffice.Presentation_2007;
 using A = DocumentFormat.OpenXml.Drawing;
 using P = DocumentFormat.OpenXml.Presentation;
 using CX = DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-
+using System.Reflection;
 namespace OpenXMLOffice.Presentation_2016
 {
 	/// <summary>
@@ -15,16 +14,14 @@ namespace OpenXMLOffice.Presentation_2016
 	/// </summary>
 	public class AdvancedChartProperties<ApplicationSpecificSetting> : ChartProperties<ApplicationSpecificSetting> where ApplicationSpecificSetting : PresentationSetting
 	{
-		private AlternateContent? alternateContent;
-
+		private AlternateContent alternateContent;
 		private readonly TextBox errorMessage;
-
 		/// <summary>
 		///
 		/// </summary>
 		public AdvancedChartProperties(Slide slide, ChartSetting<ApplicationSpecificSetting> chartSetting) : base(slide, chartSetting)
 		{
-			errorMessage = new TextBox(new()
+			errorMessage = new TextBox(new TextBoxSetting()
 			{
 				text = "This chart is not supported in this version of PowerPoint. Requires PowerPoint 2016 or later.",
 				x = chartSetting.applicationSpecificSetting.x,
@@ -33,20 +30,19 @@ namespace OpenXMLOffice.Presentation_2016
 				height = chartSetting.applicationSpecificSetting.height,
 			});
 		}
-
 		/// <summary>
 		///
 		/// </summary>
 		internal void CreateExtendedChartGraphicFrame(string relationshipId, uint id)
 		{
 			// Load Chart Part To Graphics Frame For Export
-			P.NonVisualGraphicFrameProperties nonVisualProperties = new()
+			P.NonVisualGraphicFrameProperties nonVisualProperties = new P.NonVisualGraphicFrameProperties()
 			{
 				NonVisualDrawingProperties = new P.NonVisualDrawingProperties { Id = id, Name = "Chart" },
 				NonVisualGraphicFrameDrawingProperties = new P.NonVisualGraphicFrameDrawingProperties(),
 				ApplicationNonVisualDrawingProperties = new P.ApplicationNonVisualDrawingProperties()
 			};
-			graphicFrame = new()
+			graphicFrame = new P.GraphicFrame()
 			{
 				NonVisualGraphicFrameProperties = nonVisualProperties,
 				Transform = new P.Transform(
@@ -70,7 +66,6 @@ namespace OpenXMLOffice.Presentation_2016
 			};
 			CreateAlternateContent();
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -79,7 +74,6 @@ namespace OpenXMLOffice.Presentation_2016
 			base.UpdateSize(width, height);
 			errorMessage.UpdateSize(width, height);
 		}
-
 		/// <summary>
 		///
 		/// </summary>
@@ -88,12 +82,11 @@ namespace OpenXMLOffice.Presentation_2016
 			base.UpdatePosition(x, y);
 			errorMessage.UpdatePosition(x, y);
 		}
-
 		private void CreateAlternateContent()
 		{
-			alternateContent = new(
+			alternateContent = new AlternateContent(
 				new AlternateContentChoice(
-					(OpenXmlElement)graphicFrame!.Clone()
+					(OpenXmlElement)graphicFrame.Clone()
 				)
 				{ Requires = "cx1" },
 				new AlternateContentFallback(
@@ -102,15 +95,13 @@ namespace OpenXMLOffice.Presentation_2016
 			);
 			alternateContent.AddNamespaceDeclaration("cx1", "http://schemas.microsoft.com/office/drawing/2015/9/8/chartex");
 		}
-
 		internal AlternateContent GetAlternateContent()
 		{
-			return alternateContent!;
+			return alternateContent;
 		}
-
 		new internal void GetChartGraphicFrame()
 		{
-			throw new AmbiguousImplementationException("Use GetAlternateContent() instead.");
+			throw new AmbiguousMatchException("Use GetAlternateContent() instead.");
 		}
 	}
 }

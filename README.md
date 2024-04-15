@@ -4,8 +4,7 @@
 
 # OpenXML-Office
 
-OpenXML-Office is an advanced .NET library that leverages the power of OpenXML SDK 3.0 to streamline the creation and manipulation of Office documents, with a primary focus on Excel, Word, and PowerPoint files. My mission is to enhance the document creation experience for developers by providing intuitive namespaces, classes, and utilities. The library is designed to offer maximum efficiency and ease of use, ensuring a seamless workflow. 
-
+OpenXML-Office is an advanced .NET library that leverages the power of OpenXML SDK 3.0 to streamline the creation and manipulation of Office documents, with a primary focus on Excel, Word, and PowerPoint files. My mission is to enhance the document creation experience for developers by providing intuitive namespaces, classes, and utilities. The library is designed to offer maximum efficiency and ease of use, ensuring a seamless workflow.
 It's important to note that OpenXML-Office supports the creation of documents that can be opened from Office 2007 onwards. However, not every feature is available from the 2007 version. For instance if new features are added as part of the 2016 version, they are kept in a namespace that explicitly mentions '2016.' Developers should be aware that if they use 2016 components in their document creation, the generated file can only be opened in 2016 and above versions without any issues.
 
 ## Scope Details
@@ -13,6 +12,8 @@ It's important to note that OpenXML-Office supports the creation of documents th
 - **Easy Creation of Office Documents**: Create and manipulate Excel, Word, and PowerPoint files with ease.
 - **OpenXML SDK 3.0**: Built on the robust foundation of the OpenXML SDK.
 - **Modular Architecture**: Dedicated modules for each Office application for better manageability.
+- **.Net Support Version** : This package support application package starting from .Net 4.5
+- **Office Support Version** : Our package ensures compatibility with Office 2007 and later versions for document creation. New features introduced post 2007 will be segregated into respective namespace years.
 
 ## Documentation [Link](https://openxml-office.draviavemal.com/)
 
@@ -25,15 +26,13 @@ This project is licensed under the MIT License - see the [LICENSE](https://dravi
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
 
 1. Create your Feature Branch (git checkout -b feature/AmazingFeature)
 2. Commit your Changes (git commit -m 'Add some AmazingFeature')
 3. Push to the Branch (git push origin feature/AmazingFeature)
 4. Open a Pull Request
-
-Please ensure you follow PR and issue templates for quicker resolution.
+   Please ensure you follow PR and issue templates for quicker resolution.
 
 ## Support
 

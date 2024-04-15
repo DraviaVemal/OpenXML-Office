@@ -1,11 +1,11 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
-
 using C = DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Packaging;
 using OpenXMLOffice.Spreadsheet_2007;
 using OpenXMLOffice.Global_2007;
 using OpenXMLOffice.Global_2013;
-
+using System.IO;
+using System.Linq;
 namespace OpenXMLOffice.Presentation_2007
 {
 	/// <summary>
@@ -23,7 +23,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, areaChartSetting);
 		}
-
 		/// <summary>
 		/// Create Bar Chart with provided settings
 		/// </summary>
@@ -33,7 +32,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, barChartSetting);
 		}
-
 		/// <summary>
 		/// Create Column Chart with provided settings
 		/// </summary>
@@ -43,7 +41,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, columnChartSetting);
 		}
-
 		/// <summary>
 		/// Create Line Chart with provided settings
 		/// </summary>
@@ -53,7 +50,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, lineChartSetting);
 		}
-
 		/// <summary>
 		/// Create Pie Chart with provided settings
 		/// </summary>
@@ -63,7 +59,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, pieChartSetting);
 		}
-
 		/// <summary>
 		/// Create Scatter Chart with provided settings
 		/// </summary>
@@ -82,7 +77,6 @@ namespace OpenXMLOffice.Presentation_2007
 			InitialiseChartParts();
 			CreateChart(dataRows, comboChartSetting);
 		}
-
 		/// <summary>
 		/// Get Worksheet control for the chart embedded object
 		/// </summary>
@@ -90,78 +84,69 @@ namespace OpenXMLOffice.Presentation_2007
 		/// </returns>
 		public Excel GetChartWorkBook()
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
-			return new(stream, true);
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
+			return new Excel(stream, true);
 		}
-
 		internal string GetNextChartRelationId()
 		{
 			return string.Format("rId{0}", GetChartPart().Parts.Count() + 1);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, AreaChartSetting<ApplicationSpecificSetting> areaChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			AreaChart<ApplicationSpecificSetting> areaChart = new(areaChartSetting, ExcelToPPTdata(dataRows));
+			AreaChart<ApplicationSpecificSetting> areaChart = new AreaChart<ApplicationSpecificSetting>(areaChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(areaChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, BarChartSetting<ApplicationSpecificSetting> barChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			BarChart<ApplicationSpecificSetting> barChart = new(barChartSetting, ExcelToPPTdata(dataRows));
+			BarChart<ApplicationSpecificSetting> barChart = new BarChart<ApplicationSpecificSetting>(barChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(barChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, ColumnChartSetting<ApplicationSpecificSetting> columnChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			ColumnChart<ApplicationSpecificSetting> columnChart = new(columnChartSetting, ExcelToPPTdata(dataRows));
+			ColumnChart<ApplicationSpecificSetting> columnChart = new ColumnChart<ApplicationSpecificSetting>(columnChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(columnChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, LineChartSetting<ApplicationSpecificSetting> lineChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			LineChart<ApplicationSpecificSetting> lineChart = new(lineChartSetting, ExcelToPPTdata(dataRows));
+			LineChart<ApplicationSpecificSetting> lineChart = new LineChart<ApplicationSpecificSetting>(lineChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(lineChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, PieChartSetting<ApplicationSpecificSetting> pieChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			PieChart<ApplicationSpecificSetting> pieChart = new(pieChartSetting, ExcelToPPTdata(dataRows));
+			PieChart<ApplicationSpecificSetting> pieChart = new PieChart<ApplicationSpecificSetting>(pieChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(pieChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, ScatterChartSetting<ApplicationSpecificSetting> scatterChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			ScatterChart<ApplicationSpecificSetting> scatterChart = new(scatterChartSetting, ExcelToPPTdata(dataRows));
+			ScatterChart<ApplicationSpecificSetting> scatterChart = new ScatterChart<ApplicationSpecificSetting>(scatterChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(scatterChart);
 		}
-
 		private void CreateChart(DataCell[][] dataRows, ComboChartSetting<ApplicationSpecificSetting> comboChartSetting)
 		{
-			Stream stream = GetChartPart().EmbeddedPackagePart!.GetStream();
+			Stream stream = GetChartPart().EmbeddedPackagePart.GetStream();
 			WriteDataToExcel(dataRows, stream);
-			ComboChart<ApplicationSpecificSetting> comboChart = new(comboChartSetting, ExcelToPPTdata(dataRows));
+			ComboChart<ApplicationSpecificSetting> comboChart = new ComboChart<ApplicationSpecificSetting>(comboChartSetting, ExcelToPPTdata(dataRows));
 			CreateChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
 			SaveChanges(comboChart);
 		}
-
 		private void SaveChanges(ChartBase<ApplicationSpecificSetting> chart)
 		{
 			chart.GetChartSpace().Append(new C.ExternalData(
@@ -175,29 +160,23 @@ namespace OpenXMLOffice.Presentation_2007
 			GetChartColorStylePart().ColorStyle.Save();
 			GetChartPart().ChartSpace.Save();
 		}
-
 		private ChartColorStylePart GetChartColorStylePart()
 		{
-			return openXMLChartPart.ChartColorStyleParts.FirstOrDefault()!;
+			return openXMLChartPart.ChartColorStyleParts.FirstOrDefault();
 		}
-
 		private ChartPart GetChartPart()
 		{
 			return openXMLChartPart;
 		}
-
 		private ChartStylePart GetChartStylePart()
 		{
-			return openXMLChartPart.ChartStyleParts.FirstOrDefault()!;
+			return openXMLChartPart.ChartStyleParts.FirstOrDefault();
 		}
-
 		private void InitialiseChartParts()
 		{
 			GetChartPart().AddNewPart<EmbeddedPackagePart>(EmbeddedPackagePartType.Xlsx.ContentType, GetNextChartRelationId());
 			GetChartPart().AddNewPart<ChartColorStylePart>(GetNextChartRelationId());
 			GetChartPart().AddNewPart<ChartStylePart>(GetNextChartRelationId());
 		}
-
-
 	}
 }
