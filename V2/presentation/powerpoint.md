@@ -24,8 +24,8 @@ Create or open a pptx file from path
 {% tab title="C#" %}
 ```csharp
 public static CreateNew(){
-    PowerPoint powerPoint = new("test.pptx", null);
-    powerPoint.Save();
+    PowerPoint powerPoint = new();
+    powerPoint.SaveAs("test.pptx");
 }
 
 public static OpenExisting(){
@@ -42,8 +42,8 @@ Create or open a pptx object using a stream
 {% tab title="C#" %}
 ```csharp
 public static CreateUsingStream(Stream stream){
-    PowerPoint powerPoint = new(stream, null);
-    powerPoint.Save();
+    PowerPoint powerPoint = new();
+    powerPoint.SaveAs(stream);
 }
 ```
 {% endtab %}
@@ -55,7 +55,7 @@ Sample using most of the exposed functions
 {% tab title="C#" %}
 ```csharp
 public static CreateNew(){
-    PowerPoint powerPoint = new("test.pptx", null);
+    PowerPoint powerPoint = new();
     // Add Blank Slide To the Blank Presentation
     // Return Slide Object that can be used to do slide level operation
     Slide slide = powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
@@ -66,7 +66,7 @@ public static CreateNew(){
     // Remove Slide and its content from Presentation
     powerPoint.RemoveSlideByIndex(0);
     // Save the Opened Presentation
-    powerPoint.Save();
+    powerPoint.SaveAs("test.pptx");
 }
 ```
 {% endtab %}
