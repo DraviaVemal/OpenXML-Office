@@ -6,7 +6,7 @@ description: >-
 
 # Getting Started
 
-### <mark style="color:yellow;">Check out my new</mark> [alpha release](https://openxml-office.draviavemal.com/v/v2.1.1-latest). I strongly recomend this for new adopters.
+### <mark style="color:yellow;">Check out my new</mark> [release](https://openxml-office.draviavemal.com/v/v2.1.1-latest). I strongly recomend this for new adopters.
 
 ## Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
 
