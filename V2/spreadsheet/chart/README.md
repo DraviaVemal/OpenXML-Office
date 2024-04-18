@@ -186,23 +186,3 @@ This properties give control over the X and Y axes. (Relate placement based on y
 | ----------- | ------- | ------------------------------------------------------------- |
 | fillColor   | string? | Explicit fill color for one specific data point in a series   |
 | borderColor | string? | Explicit border color for one specific data point in a series |
-
-### Embedded Excel Component
-
-Embedded excel can be accessed using `GetChartWorkBook` return OpenXMLOffice.Excel Worksheet. Refer [Worksheet](../worksheet.md) section for more details
-
-{% tabs %}
-{% tab title="C#" %}
-```csharp
-Chart chart = powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-				.AddChart(CreateDataCellPayload(), new G.LineChartSetting());
-Worksheet worksheet = chart.GetChartWorksheet();
-worksheet.SetRow(12, 1, new DataCell[] { 
-new() {
-  cellValue = "Added Additional Data To Chart",
-  dataType = CellDataType.STRING
-  }
-}, new());
-```
-{% endtab %}
-{% endtabs %}
