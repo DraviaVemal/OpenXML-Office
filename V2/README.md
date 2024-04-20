@@ -56,9 +56,9 @@ Once Installed the package should be direct use availabel like below example. Mo
 using OpenXMLOffice.Presentation_2007;
 
 public static main(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
+    PowerPoint powerPoint = new();
     powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
-    powerPoint.save();
+    powerPoint.SaveAs(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 }
 ```
 {% endtab %}
@@ -70,9 +70,9 @@ public static main(){
 using OpenXMLOffice.Spreadsheet_2007;
 
 public static main(){
-    Excel excel = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
+    Excel excel = new();
     excel.AddSheet("Sheet1");
-    excel.save();
+    excel.SaveAs(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 }
 ```
 {% endtab %}
