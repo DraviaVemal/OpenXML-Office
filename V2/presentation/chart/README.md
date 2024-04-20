@@ -174,7 +174,7 @@ This properties give control over the X and Y axes. (Relate placement based on y
 
 ### Embedded Excel Component
 
-Embedded excel can be accessed using `GetChartWorkBook` return OpenXMLOffice.Spreadsheet Worksheet. Refer [Worksheet](../../spreadsheet/worksheet.md) section for more details
+Embedded excel can be accessed using `GetWorkBookStream` return OpenXMLOffice.Spreadsheet Worksheet. Refer [Worksheet](../../spreadsheet/worksheet.md) section for more details
 
 {% tabs %}
 {% tab title="C#" %}
