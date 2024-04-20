@@ -181,7 +181,7 @@ Embedded excel can be accessed using `GetChartWorkBook` return OpenXMLOffice.Spr
 ```csharp
 Chart chart = powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
 				.AddChart(CreateDataCellPayload(), new G.LineChartSetting());
-Stream stream = chart.GetWorkBookStream();
+using Stream stream = chart.GetWorkBookStream();
 // Creating a new excel instance object from chart base source
 // Note: Updating data directly in Excel will now reflect in PPT Chart graphic cache on open.
 // Use Chart object data for embedding chart data and this handle for extending addition of data,logo,etc... 
