@@ -19,17 +19,42 @@ Textbox Control to add and update Text Box
 {% tabs %}
 {% tab title="C#" %}
 ```csharp
-shapes3[0].ReplaceTextBox(new TextBox(new G.TextBoxSetting()
-			{
-				text = "This is text box",
-				fontSize = 22,
+Slide slide = powerPoint.GetSlideByIndex(0);
+shapes3[0].ReplaceTextBox(slide, new TextBox(new G.TextBoxSetting()
+	{
+		textBlocks = new List<G.TextBlock>(){
+			new(){
+				text = "Move Slide To ",
+				fontFamily = "Bernard MT Condensed"
+			},
+			new(){
+				text = "Prev",
+				fontSize = 25,
 				isBold = true,
-				textColor = "AAAAAA"
-			}));
+				textColor = "AAAAAA",
+				hyperlinkProperties = new(){
+					hyperlinkPropertyType = G.HyperlinkPropertyType.PREVIOUS_SLIDE,
+				}
+			}
+		}.ToArray()
+	}));
 ```
 {% endtab %}
 {% endtabs %}
 
 ### `TextBoxSetting` Options
 
-<table><thead><tr><th width="204">Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>horizontalAlignment</td><td>HorizontalAlignmentValues?</td><td></td></tr><tr><td>fontFamily</td><td>string</td><td></td></tr><tr><td>fontSize</td><td>int</td><td></td></tr><tr><td>x</td><td>uint</td><td></td></tr><tr><td>y</td><td>uint</td><td></td></tr><tr><td>height</td><td>uint</td><td></td></tr><tr><td>width</td><td>uint</td><td></td></tr><tr><td>isBold</td><td>bool</td><td></td></tr><tr><td>isItalic</td><td>bool</td><td></td></tr><tr><td>isUnderline</td><td>bool</td><td></td></tr><tr><td>shapeBackground</td><td>string?</td><td></td></tr><tr><td>text</td><td>string</td><td></td></tr><tr><td>textBackground</td><td>string?</td><td></td></tr><tr><td>textColor</td><td>string</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="200">Property</th><th width="245">Type</th><th>Details</th></tr></thead><tbody><tr><td>x</td><td>uint</td><td>Textbox Top Left X</td></tr><tr><td>y</td><td>uint</td><td>Textbox Top Left y</td></tr><tr><td>height</td><td>uint</td><td>Texbox Total Height</td></tr><tr><td>width</td><td>uint</td><td>Texbox Total Width</td></tr><tr><td>horizontalAlignment</td><td>HorizontalAlignmentValues?</td><td></td></tr><tr><td>textBlocks</td><td><a href="textbox.md#textblock-options">TextBlock</a>[]</td><td>Text box content as parts to have different style setting</td></tr><tr><td>shapeBackground</td><td>string?</td><td>Entire share background color</td></tr></tbody></table>
+
+### `TextBlock` Options
+
+|                |        |                                    |
+| -------------- | ------ | ---------------------------------- |
+| fontFamily     | string | This section font family           |
+| fontSize       | int    | This section font size             |
+| isBold         | bool   | This section font family           |
+| isItalic       | bool   | This section font italic           |
+| isUnderline    | bool   | This section font underline        |
+| text           | string | This section text value            |
+| textBackground | string | This section text hightlight color |
+| textColor      | string | This section text color            |

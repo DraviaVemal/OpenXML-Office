@@ -9,6 +9,8 @@
 * [Slide](presentation/slide.md)
 * [Shape](presentation/shape.md)
 * [Picture](presentation/picture.md)
+* [Textbox](presentation/textbox.md)
+* [Table](presentation/table.md)
 * [Chart](presentation/chart/README.md)
   * [Area](presentation/chart/area.md)
   * [Bar](presentation/chart/bar.md)
@@ -18,13 +20,12 @@
   * [Scatter](presentation/chart/scatter.md)
   * [Combo](presentation/chart/combo.md)
   * [Waterfall](presentation/chart/waterfall.md)
-* [Table](presentation/table.md)
-* [Textbox](presentation/textbox.md)
 
 ## Spreadsheet
 
 * [Excel](spreadsheet/excel.md)
 * [Worksheet](spreadsheet/worksheet.md)
+* [Picture](spreadsheet/picture.md)
 * [Chart](spreadsheet/chart/README.md)
   * [Area](spreadsheet/chart/area.md)
   * [Bar](spreadsheet/chart/bar.md)
