@@ -39,7 +39,7 @@ namespace OpenXMLOffice.Presentation_2016
 		}
 		internal string GetNextChartRelationId()
 		{
-			return string.Format("rId{0}", GetChartPart().Parts.Count() + 1);
+			return string.Format("rId{0}", GetChartPart().Parts.Count() + GetChartPart().ExternalRelationships.Count() + GetChartPart().HyperlinkRelationships.Count() + GetChartPart().DataPartReferenceRelationships.Count() + 1);
 		}
 		private ExtendedChartPart GetChartPart()
 		{
@@ -52,7 +52,7 @@ namespace OpenXMLOffice.Presentation_2016
 				WriteDataToExcel(dataRows, stream);
 			};
 			WaterfallChart<ApplicationSpecificSetting> waterfallChart = new WaterfallChart<ApplicationSpecificSetting>(waterfallChartSetting, ExcelToPPTdata(dataRows));
-			CreateExtendedChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count());
+			CreateExtendedChartGraphicFrame(currentSlide.GetSlidePart().GetIdOfPart(GetChartPart()), (uint)currentSlide.GetSlidePart().GetPartsOfType<ChartPart>().Count(), waterfallChartSetting.hyperlinkProperties);
 			SaveChanges(waterfallChart);
 		}
 		private void SaveChanges(AdvanceCharts<ApplicationSpecificSetting> chart)

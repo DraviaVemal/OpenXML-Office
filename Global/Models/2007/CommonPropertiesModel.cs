@@ -602,8 +602,76 @@ namespace OpenXMLOffice.Global_2007
 	/// <summary>
 	///
 	/// </summary>
+	public enum HyperlinkPropertyType
+	{
+		/// <summary>
+		///
+		/// </summary>
+		EXISTING_FILE,
+		/// <summary>
+		///
+		/// </summary>
+		WEB_URL,
+		/// <summary>
+		/// 
+		/// </summary>
+		TARGET_SHEET,
+		/// <summary>
+		///
+		/// </summary>
+		TARGET_SLIDE,
+		/// <summary>
+		///
+		/// </summary>
+		NEXT_SLIDE,
+		/// <summary>
+		///
+		/// </summary>
+		PREVIOUS_SLIDE,
+		/// <summary>
+		///
+		/// </summary>
+		FIRST_SLIDE,
+		/// <summary>
+		///
+		/// </summary>
+		LAST_SLIDE,
+	}
+	/// <summary>
+	///
+	/// </summary>
+	public class HyperlinkProperties
+	{
+		/// <summary>
+		/// Hyperlink option type additional address detail can be set using value
+		/// </summary>
+		public HyperlinkPropertyType hyperlinkPropertyType = HyperlinkPropertyType.WEB_URL;
+		/// <summary>
+		///	Web Url or file path or slide ID use based on "HyperlinkPropertyType"
+		/// </summary>
+		public string value = null;
+		/// <summary>
+		/// Screen Tool Tip
+		/// </summary>
+		public string toolTip = null;
+		/// <summary>
+		/// Internal Use property
+		/// </summary>
+		public string relationId = null;
+		/// <summary>
+		/// Internal Use property
+		/// </summary>
+		public string action = null;
+	}
+	/// <summary>
+	///
+	/// </summary>
 	public class DrawingRunPropertiesModel
 	{
+		/// <summary>
+		///
+		/// </summary>
+		public HyperlinkProperties hyperlinkProperties = null;
 		/// <summary>
 		///
 		/// </summary>
@@ -709,7 +777,7 @@ namespace OpenXMLOffice.Global_2007
 		/// <summary>
 		///
 		/// </summary>
-		public DrawingRunModel drawingRun = null;
+		public DrawingRunModel[] drawingRuns = null;
 	}
 	/// <summary>
 	/// /

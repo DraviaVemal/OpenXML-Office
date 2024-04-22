@@ -152,10 +152,53 @@ namespace OpenXMLOffice.Tests
 			worksheet.AddPicture("./TestFiles/tom_and_jerry.jpg", new()
 			{
 				imageType = ImageType.JPEG,
-				fromCol = 6,
-				fromRow = 6,
-				toCol = 8,
-				toRow = 8
+				from = new()
+				{
+					column = 6,
+					row = 6
+				},
+				to = new()
+				{
+					column = 8,
+					row = 8
+				}
+			});
+			Assert.IsTrue(true);
+		}
+		/// <summary>
+		///
+		/// </summary>
+		[TestMethod]
+		public void AddPictureHyperlink()
+		{
+			Worksheet worksheet = excel.AddSheet("hyperLink4");
+			Assert.IsNotNull(worksheet);
+			worksheet.SetRow("D3", new DataCell[1]{
+				new(){
+					cellValue = "Re Update",
+					dataType = CellDataType.STRING
+				}
+			}, new RowProperties()
+			{
+				height = 30
+			});
+			worksheet.AddPicture("./TestFiles/tom_and_jerry.jpg", new()
+			{
+				imageType = ImageType.JPEG,
+				from = new()
+				{
+					column = 6,
+					row = 6
+				},
+				to = new()
+				{
+					column = 8,
+					row = 8
+				},
+				hyperlinkProperties = new()
+				{
+					value = "https://openxml-office.draviavemal.com/"
+				}
 			});
 			Assert.IsTrue(true);
 		}

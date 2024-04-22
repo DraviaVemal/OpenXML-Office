@@ -1,13 +1,15 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
+using System.IO;
 using OpenXMLOffice.Global_2007;
 using DocumentFormat.OpenXml.Packaging;
-using System.IO;
+using XDR = DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using System;
 namespace OpenXMLOffice.Spreadsheet_2007
 {
 	/// <summary>
 	/// Excel Picture
 	/// </summary>
-	public class Picture
+	public class Picture : CommonProperties
 	{
 		private readonly ExcelPictureSetting excelPictureSetting;
 		private readonly Worksheet currentWorksheet;
@@ -40,31 +42,49 @@ namespace OpenXMLOffice.Spreadsheet_2007
 					break;
 			}
 			imagePart.FeedData(stream);
-			currentWorksheet.CreateTwoCellAnchor(new TwoCellAnchorModel()
+			if (excelPictureSetting.hyperlinkProperties != null)
+			{
+				string relationId = currentWorksheet.GetNextDrawingPartRelationId();
+				switch (excelPictureSetting.hyperlinkProperties.hyperlinkPropertyType)
+				{
+					case HyperlinkPropertyType.EXISTING_FILE:
+						excelPictureSetting.hyperlinkProperties.relationId = relationId;
+						excelPictureSetting.hyperlinkProperties.action = "ppaction://hlinkfile";
+						currentWorksheet.GetDrawingsPart().AddHyperlinkRelationship(new Uri(excelPictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+					case HyperlinkPropertyType.TARGET_SHEET:
+						excelPictureSetting.hyperlinkProperties.relationId = relationId;
+						excelPictureSetting.hyperlinkProperties.action = "ppaction://hlinksldjump";
+						//TODO: Update Target Slide Prop
+						currentWorksheet.GetDrawingsPart().AddHyperlinkRelationship(new Uri(excelPictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+					case HyperlinkPropertyType.TARGET_SLIDE:
+					case HyperlinkPropertyType.FIRST_SLIDE:
+					case HyperlinkPropertyType.LAST_SLIDE:
+					case HyperlinkPropertyType.NEXT_SLIDE:
+					case HyperlinkPropertyType.PREVIOUS_SLIDE:
+						throw new ArgumentException("This Option is valid only for Powerpoint Files");
+					default:// Web URL
+						excelPictureSetting.hyperlinkProperties.relationId = relationId;
+						currentWorksheet.GetDrawingsPart().AddHyperlinkRelationship(new Uri(excelPictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+				}
+			}
+			XDR.TwoCellAnchor twoCellAnchor = currentWorksheet.CreateTwoCellAnchor(new TwoCellAnchorModel()
 			{
 				anchorEditType = AnchorEditType.ONE_CELL,
-				from = new AnchorPosition()
-				{
-					column = excelPictureSetting.fromCol,
-					columnOffset = excelPictureSetting.fromColOff,
-					row = excelPictureSetting.fromRow,
-					rowOffset = excelPictureSetting.fromRowOff,
-				},
-				to = new AnchorPosition()
-				{
-					column = excelPictureSetting.toCol,
-					columnOffset = excelPictureSetting.toColOff,
-					row = excelPictureSetting.toRow,
-					rowOffset = excelPictureSetting.toRowOff
-				},
+				from = excelPictureSetting.from,
+				to = excelPictureSetting.to,
 				drawingPictureModel = new DrawingPictureModel()
 				{
 					id = 2U,
 					name = "Picture 1",
 					noChangeAspectRatio = true,
-					blipEmbed = embedId
+					blipEmbed = embedId,
+					hyperlinkProperties = excelPictureSetting.hyperlinkProperties
 				}
 			});
+			currentWorksheet.GetDrawing().AppendChild(twoCellAnchor);
 		}
 	}
 }

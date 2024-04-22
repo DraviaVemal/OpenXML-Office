@@ -24,24 +24,62 @@ namespace OpenXMLOffice.Presentation_2007
 			string EmbedId = currentSlide.GetNextSlideRelationId();
 			this.pictureSetting = pictureSetting;
 			openXMLPicture = new P.Picture();
-			CreatePicture(EmbedId);
 			ImagePart ImagePart;
 			if (pictureSetting.imageType == ImageType.PNG)
 			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/png", EmbedId);
+				ImagePart = currentSlide.GetSlidePart().AddNewPart<ImagePart>("image/png", EmbedId);
 			}
 			else if (pictureSetting.imageType == ImageType.GIF)
 			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/gif", EmbedId);
+				ImagePart = currentSlide.GetSlidePart().AddNewPart<ImagePart>("image/gif", EmbedId);
 			}
 			else if (pictureSetting.imageType == ImageType.TIFF)
 			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/tiff", EmbedId);
+				ImagePart = currentSlide.GetSlidePart().AddNewPart<ImagePart>("image/tiff", EmbedId);
 			}
 			else
 			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/jpeg", EmbedId);
+				ImagePart = currentSlide.GetSlidePart().AddNewPart<ImagePart>("image/jpeg", EmbedId);
 			}
+			// Add Hyperlink Relationships to slide
+			if (pictureSetting.hyperlinkProperties != null)
+			{
+				string relationId = slide.GetNextSlideRelationId();
+				switch (pictureSetting.hyperlinkProperties.hyperlinkPropertyType)
+				{
+					case HyperlinkPropertyType.EXISTING_FILE:
+						pictureSetting.hyperlinkProperties.relationId = relationId;
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinkfile";
+						slide.GetSlidePart().AddHyperlinkRelationship(new Uri(pictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+					case HyperlinkPropertyType.TARGET_SLIDE:
+						pictureSetting.hyperlinkProperties.relationId = relationId;
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinksldjump";
+						//TODO: Update Target Slide Prop
+						slide.GetSlidePart().AddHyperlinkRelationship(new Uri(pictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+					case HyperlinkPropertyType.TARGET_SHEET:
+						throw new ArgumentException("This Option is valid only for Excel Files");
+					case HyperlinkPropertyType.FIRST_SLIDE:
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinkshowjump?jump=firstslide";
+						break;
+					case HyperlinkPropertyType.LAST_SLIDE:
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinkshowjump?jump=lastslide";
+						break;
+					case HyperlinkPropertyType.NEXT_SLIDE:
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinkshowjump?jump=nextslide";
+						break;
+					case HyperlinkPropertyType.PREVIOUS_SLIDE:
+						pictureSetting.hyperlinkProperties.action = "ppaction://hlinkshowjump?jump=previousslide";
+						break;
+					default:// Web URL
+						pictureSetting.hyperlinkProperties.relationId = relationId;
+						slide.GetSlidePart().AddHyperlinkRelationship(new Uri(pictureSetting.hyperlinkProperties.value), true, relationId);
+						break;
+				}
+			}
+			CreatePicture(EmbedId, pictureSetting.hyperlinkProperties);
+			slide.GetSlide().CommonSlideData.ShapeTree.Append(GetPicture());
 			ImagePart.FeedData(stream);
 		}
 		/// <summary>
@@ -49,29 +87,10 @@ namespace OpenXMLOffice.Presentation_2007
 		/// </summary>
 		public Picture(string filePath, Slide slide, PictureSetting pictureSetting)
 		{
-			currentSlide = slide;
-			string EmbedId = currentSlide.GetNextSlideRelationId();
-			this.pictureSetting = pictureSetting;
-			openXMLPicture = new P.Picture();
-			CreatePicture(EmbedId);
-			ImagePart ImagePart;
-			if (pictureSetting.imageType == ImageType.PNG)
+			using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
 			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/png", EmbedId);
+				new Picture(fileStream, slide, pictureSetting);
 			}
-			else if (pictureSetting.imageType == ImageType.GIF)
-			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/gif", EmbedId);
-			}
-			else if (pictureSetting.imageType == ImageType.TIFF)
-			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/tiff", EmbedId);
-			}
-			else
-			{
-				ImagePart = currentSlide.GetSlide().SlidePart.AddNewPart<ImagePart>("image/jpeg", EmbedId);
-			}
-			ImagePart.FeedData(new FileStream(filePath, FileMode.Open, FileAccess.Read));
 		}
 		/// <summary>
 		/// X,Y
@@ -123,7 +142,7 @@ namespace OpenXMLOffice.Presentation_2007
 		{
 			return openXMLPicture;
 		}
-		private void CreatePicture(string EmbedId)
+		private void CreatePicture(string EmbedId, HyperlinkProperties hyperlinkProperties)
 		{
 			GetPicture().NonVisualPictureProperties = new P.NonVisualPictureProperties(
 				new P.NonVisualDrawingProperties()
@@ -139,6 +158,10 @@ namespace OpenXMLOffice.Presentation_2007
 				),
 				new P.ApplicationNonVisualDrawingProperties()
 			);
+			if (hyperlinkProperties != null)
+			{
+				GetPicture().NonVisualPictureProperties.NonVisualDrawingProperties.InsertAt(CreateHyperLink(hyperlinkProperties), 0);
+			}
 			GetPicture().ShapeProperties = new P.ShapeProperties(
 				new A.PresetGeometry(new A.AdjustValueList()) { Preset = A.ShapeTypeValues.Rectangle }
 			)
