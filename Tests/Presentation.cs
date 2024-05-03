@@ -288,7 +288,7 @@ namespace OpenXMLOffice.Tests
 				applicationSpecificSetting = new(),
 				scatterChartType = G.ScatterChartTypes.BUBBLE
 			});
-			Assert.IsTrue(true);
+			Assert.IsTrue(powerPoint.GetSlideCount() > 0);
 		}
 		/// <summary>
 		///
@@ -323,6 +323,7 @@ namespace OpenXMLOffice.Tests
 			{
 				applicationSpecificSetting = new(),
 			});
+			Assert.IsTrue(true);
 		}
 		/// <summary>
 		/// Add Blank Slide to the PPT

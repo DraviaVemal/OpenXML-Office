@@ -8,11 +8,25 @@ on:
     branches:
       - main
     paths:
-      - 'Directory.Build.props'
+      - "Directory.Build.props"
 jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "7.0"
+      - name: Test Runner
+        working-directory: Tests
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../TestResults/cobertura.xml
+      - name: Publish Coverage
+        working-directory: TestResults
+        run: export CODACY_PROJECT_TOKEN=${{secrets.CODACY_PROJECT_TOKEN}} && curl -Ls https://coverage.codacy.com/get.sh | bash
   build-CsProj:
-    runs-on: windows-latest
-    environment: Build
+    needs: coverage
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET 7
@@ -23,9 +37,6 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore -c Release
-      - name: Publish Coverage
-        working-directory: ./TestResults
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
       - name: Pack Project DLL
         run: dotnet pack -c Release -o nupkgs
       - name: Upload Artifacts
@@ -44,4 +55,4 @@ jobs:
           name: nupkgs
           path: nupkgs
       - name: Publish to NuGet
-        run: dotnet nuget push "nupkgs/*" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "nupkgs/*" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
