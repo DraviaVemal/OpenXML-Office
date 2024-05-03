@@ -1,4 +1,5 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
+
 namespace OpenXMLOffice.Presentation_2007
 {
 	/// <summary>
@@ -9,6 +10,6 @@ namespace OpenXMLOffice.Presentation_2007
 		/// <summary>
 		/// Hide the current slide
 		/// </summary>
-		public bool hideSlide = false;
+		public bool hideSlide;
 	}
 }

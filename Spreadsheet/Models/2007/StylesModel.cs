@@ -1,4 +1,5 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
+
 using OpenXMLOffice.Global_2007;
 namespace OpenXMLOffice.Spreadsheet_2007
 {
@@ -225,23 +226,23 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		/// <summary>
 		/// Is Cell Bold. default is false
 		/// </summary>
-		public bool isBold = false;
+		public bool isBold;
 		/// <summary>
 		/// Is Cell Double Underline. default is false
 		/// </summary>
-		public bool isDoubleUnderline = false;
+		public bool isDoubleUnderline;
 		/// <summary>
 		/// Is Cell Italic. default is false
 		/// </summary>
-		public bool isItalic = false;
+		public bool isItalic;
 		/// <summary>
 		/// Is Cell Underline. default is false
 		/// </summary>
-		public bool isUnderline = false;
+		public bool isUnderline;
 		/// <summary>
 		/// Is Wrap Text. default is false
 		/// </summary>
-		public bool isWrapText = false;
+		public bool isWrapText;
 		/// <summary>
 		/// Gets or sets the number format of the cell. default is General
 		/// </summary>

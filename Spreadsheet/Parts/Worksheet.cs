@@ -1,4 +1,5 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,9 +31,9 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		/// <summary>
 		/// Returns the sheet ID of the current worksheet.
 		/// </summary>
-		public int GetSheetId()
+		public string GetSheetId()
 		{
-			return int.Parse(sheet.Id.Value);
+			return sheet.Id.Value;
 		}
 		/// <summary>
 		///

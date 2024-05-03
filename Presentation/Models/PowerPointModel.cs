@@ -1,4 +1,5 @@
 // Copyright (c) DraviaVemal. Licensed under the MIT License. See License in the project root.
+
 using System.Collections.Generic;
 using OpenXMLOffice.Global_2007;
 namespace OpenXMLOffice.Presentation_2007
@@ -36,11 +37,11 @@ namespace OpenXMLOffice.Presentation_2007
 		/// <summary>
 		/// Gets or sets a value indicating whether the presentation has multiple slide masters.
 		/// </summary>
-		public bool isMultiSlideMasterPartPresentation = false;
+		public bool isMultiSlideMasterPartPresentation;
 		/// <summary>
 		/// Gets or sets a value indicating whether the presentation has multiple themes.
 		/// </summary>
-		public bool isMultiThemePresentation = false;
+		public bool isMultiThemePresentation;
 	}
 	/// <summary>
 	/// Represents a slide master in a presentation.
@@ -55,6 +56,6 @@ namespace OpenXMLOffice.Presentation_2007
 	internal class PowerPointInfo
 	{
 		public bool isEditable = true;
-		public bool isExistingFile = false;
+		public bool isExistingFile;
 	}
 }
