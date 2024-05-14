@@ -16,6 +16,20 @@ layout:
 
 Adding, Modifying a sheet from spreadsheet is handled by this class object
 
+### Methods
+
+| Method           | Parameter/Return                | Function                                          |
+| ---------------- | ------------------------------- | ------------------------------------------------- |
+| GetSheetId       | /string                         | Return current sheet id                           |
+| GetSheetName     | /string                         | Return current sheet name                         |
+| SetColumn        | cilumn,ColumnProperty           | Set column property                               |
+| SetRow           | cellid,cellData,RowProperty     | Set row property and data                         |
+| AddPicture       | filePath,PictureSetting/Picture | Add Picture to current slide                      |
+| AddChart         | DataRange,chartSetting/Chart    | Add Chart to current slide                        |
+| GetMergeCellList | /List\<MergeCellRange>          | Get existing merge range from current sheet       |
+| SetMergeCell     | MergeCellRange/bool             | Set new merge range if not affecting existing     |
+| RemoveMergeCell  | MergeCellRange/bool             | Remove any existing range within the caller range |
+
 ### Sheet Code Samples
 
 To add, remove and get sheet from excel
