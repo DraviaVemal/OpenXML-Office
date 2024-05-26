@@ -8,8 +8,6 @@ description: >-
 
 Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
 
-## Document coverage is not upto date with v2.7
-
 {% tabs %}
 {% tab title="C#" %}
 The library is available on NuGet. You can install it using the following command

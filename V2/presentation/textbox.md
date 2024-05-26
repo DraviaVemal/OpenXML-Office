@@ -48,13 +48,14 @@ shapes3[0].ReplaceTextBox(slide, new TextBox(new G.TextBoxSetting()
 
 ### `TextBlock` Options
 
-|                |        |                                    |
-| -------------- | ------ | ---------------------------------- |
-| fontFamily     | string | This section font family           |
-| fontSize       | int    | This section font size             |
-| isBold         | bool   | This section font family           |
-| isItalic       | bool   | This section font italic           |
-| isUnderline    | bool   | This section font underline        |
-| text           | string | This section text value            |
-| textBackground | string | This section text hightlight color |
-| textColor      | string | This section text color            |
+|                     |                                                                             |                                          |
+| ------------------- | --------------------------------------------------------------------------- | ---------------------------------------- |
+| fontFamily          | string                                                                      | This section font family                 |
+| fontSize            | int                                                                         | This section font size                   |
+| isBold              | bool                                                                        | This section font family                 |
+| isItalic            | bool                                                                        | This section font italic                 |
+| isUnderline         | bool                                                                        | This section font underline              |
+| text                | string                                                                      | This section text value                  |
+| textBackground      | string                                                                      | This section text hightlight color       |
+| textColor           | string                                                                      | This section text color                  |
+| hyperlinkProperties | [HyperlinkProperties](../spreadsheet/shared.md#hyperlinkproperties-setting) | Hyperlink properties for each text block |

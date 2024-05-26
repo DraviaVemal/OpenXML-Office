@@ -74,6 +74,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Presentation`
   * Scatter Line Marker
   * Scatter Line
   * Bubble
+  * Bubble 3D
 
 <!---->
 

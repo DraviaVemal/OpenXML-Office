@@ -42,21 +42,8 @@ public void AddPicture()
 
 ### `ExcelPictureSetting` Options
 
-<table><thead><tr><th width="197">Property</th><th width="203">Type</th><th>Details</th></tr></thead><tbody><tr><td>hyperlinkProperties</td><td><a href="picture.md#hyperlinkproperties-options">HyperlinkProperties</a></td><td></td></tr><tr><td>imageType</td><td>ImageType</td><td></td></tr><tr><td>anchorEditType</td><td>AnchorEditType</td><td></td></tr><tr><td>from</td><td><a href="picture.md#anchorposition-options">AnchorPosition</a></td><td></td></tr><tr><td>to</td><td><a href="picture.md#anchorposition-options">AnchorPosition</a></td><td></td></tr></tbody></table>
-
-### `HyperlinkProperties` Options
-
-| Property              | Type                  | Details |
-| --------------------- | --------------------- | ------- |
-| hyperlinkPropertyType | HyperlinkPropertyType |         |
-| value                 | string                |         |
-| toolTip               | string                |         |
+<table><thead><tr><th width="197">Property</th><th width="203">Type</th><th>Details</th></tr></thead><tbody><tr><td>hyperlinkProperties</td><td><a href="shared.md#hyperlinkproperties-setting">HyperlinkProperties</a></td><td>Attach hyperlink to the image</td></tr><tr><td>imageType</td><td>ImageType</td><td>Image extension type</td></tr><tr><td>anchorEditType</td><td>AnchorEditType</td><td>Mode of picture starting point</td></tr><tr><td>from</td><td><a href="picture.md#anchorposition-options">AnchorPosition</a></td><td>Top Left coordinate</td></tr><tr><td>to</td><td><a href="picture.md#anchorposition-options">AnchorPosition</a></td><td>Bottom right X coordinate</td></tr></tbody></table>
 
 ### `AnchorPosition` Options
 
-| Property     | Type | Details |
-| ------------ | ---- | ------- |
-| column       | uint |         |
-| columnOffset | uint |         |
-| row          | uint |         |
-| rowOffset    | uint |         |
+<table><thead><tr><th width="158">Property</th><th width="67">Type</th><th>Details</th></tr></thead><tbody><tr><td>column</td><td>uint</td><td></td></tr><tr><td>columnOffset</td><td>uint</td><td></td></tr><tr><td>row</td><td>uint</td><td></td></tr><tr><td>rowOffset</td><td>uint</td><td></td></tr></tbody></table>

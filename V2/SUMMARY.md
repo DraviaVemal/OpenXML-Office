@@ -32,10 +32,10 @@
   * [Column](spreadsheet/chart/column.md)
   * [Line](spreadsheet/chart/line.md)
   * [Pie](spreadsheet/chart/pie.md)
-  * [Scatter - In Progress](spreadsheet/chart/scatter-in-progress.md)
+  * [Scatter](spreadsheet/chart/scatter.md)
   * [Combo](spreadsheet/chart/combo.md)
-  * [Waterfall - In Progress](spreadsheet/chart/waterfall-in-progress.md)
 * [Style](spreadsheet/style.md)
+* [Shared](spreadsheet/shared.md)
 
 ***
 

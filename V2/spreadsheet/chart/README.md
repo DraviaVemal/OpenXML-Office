@@ -67,13 +67,14 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [**X Y (Scatter) Chart**](scatter-in-progress.md) (2007 - In Progress **:**
+* [**X Y (Scatter) Chart**](scatter.md) (2007 - In Progress **:**
   * Scatter
   * Scatter Smooth Line Marker
   * Scatter Smooth Line
   * Scatter Line Marker
   * Scatter Line
   * Bubble
+  * Bubble 3D
 
 <!---->
 
@@ -83,7 +84,6 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
   * [Column](column.md)
   * [Line](line.md)
   * [Pie](pie.md)
-* [Waterfall Chart](../../presentation/chart/waterfall.md) (2016) - In Progress
 
 </details>
 
