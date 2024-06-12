@@ -192,7 +192,7 @@ namespace OpenXMLOffice.Global_2007
 				}
 				if(pieChartDataLabel.formatCode != null)
 				{
-					dataLabels.Append(new C.NumberingFormat() { FormatCode = pieChartDataLabel.formatCode, SourceLinked = true });
+					dataLabels.InsertAt(new C.NumberingFormat { FormatCode = pieChartDataLabel.formatCode, SourceLinked = false }, 0);
 				}
 				return dataLabels;
 			}
