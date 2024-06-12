@@ -27,6 +27,7 @@
 * [Worksheet](spreadsheet/worksheet.md)
 * [Shape](spreadsheet/shape.md)
 * [Picture](spreadsheet/picture.md)
+* [Table](spreadsheet/table.md)
 * [Chart](spreadsheet/chart/README.md)
   * [Area](spreadsheet/chart/area.md)
   * [Bar](spreadsheet/chart/bar.md)
@@ -35,7 +36,6 @@
   * [Pie](spreadsheet/chart/pie.md)
   * [Scatter](spreadsheet/chart/scatter.md)
   * [Combo](spreadsheet/chart/combo.md)
-* [Table](spreadsheet/table.md)
 * [Style](spreadsheet/style.md)
 * [Shared](spreadsheet/shared.md)
 
