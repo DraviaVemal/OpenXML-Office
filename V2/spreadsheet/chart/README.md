@@ -67,7 +67,7 @@ The `Chart` class, a versatile component within the `OpenXMLOffice.Spreadsheet` 
 
 <!---->
 
-* [**X Y (Scatter) Chart**](scatter.md) (2007 - In Progress **:**
+* [**X Y (Scatter) Chart**](scatter.md) (2007) **:**
   * Scatter
   * Scatter Smooth Line Marker
   * Scatter Smooth Line
