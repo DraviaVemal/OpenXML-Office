@@ -942,7 +942,7 @@ namespace OpenXMLOffice.Tests
 			{
 				name = "New Table",
 				widthType = TableSetting.WidthOptionValues.PERCENTAGE,
-				tableColumnWidth = new() { 40, 30, 15, 10, 5 },
+				tableColumnWidth = new() { 10, 10, 10, 10, 10, 10, 10, 10 },
 				x = (uint)G.ConverterUtils.PixelsToEmu(10),
 				y = (uint)G.ConverterUtils.PixelsToEmu(10),
 			});
@@ -1047,7 +1047,7 @@ namespace OpenXMLOffice.Tests
 			{
 				name = "New Table",
 				widthType = TableSetting.WidthOptionValues.PERCENTAGE,
-				tableColumnWidth = new() { 40, 30, 15, 10, 5 },
+				tableColumnWidth = new() { 10, 10, 10, 10, 10, 10, 10, 10 },
 			}));
 			shapes2[0].ReplacePicture(slide.AddPicture("./TestFiles/tom_and_jerry.jpg", new G.PictureSetting()
 			{
@@ -1221,7 +1221,7 @@ namespace OpenXMLOffice.Tests
 		}
 
 		// Create a table row payload with multiple rows and columns for testing with each row contains three rowspan and column contains three colspan
-		private static TableRow[] CreateTableRowPayload(int rowCount = 5, int columnCount = 5)
+		private static TableRow[] CreateTableRowPayload(int rowCount = 5, int columnCount = 8)
 		{
 			TableRow[] data = new TableRow[rowCount];
 			for (int i = 0; i < rowCount; i++)
@@ -1234,6 +1234,14 @@ namespace OpenXMLOffice.Tests
 						colSpanVal = 2;
 					} else if (i == 5 && j == 2){
 						colSpanVal = 3;
+					} else if (i == 5 && j == 5){
+						colSpanVal = 3;
+					}
+					uint rowSpanVal = 0;
+					if(i == 6 && j == 0){
+						rowSpanVal = 2;
+					} else if (i == 6 && j == 2){
+						rowSpanVal = 2;
 					}
 					TableBorderSettings borderColorSetting = new(){};
 					if (i == 3 && j == 3) {
@@ -1268,7 +1276,7 @@ namespace OpenXMLOffice.Tests
 					{
 						textValue = $"Row {i + 1}, Column {j + 1}",
 						textColor = "FF0000",
-						fontSize = 25 / (j + 1),
+						fontSize = 12,
 						rowSpan = (uint)((i == 0 && j == 0) ? 3 : 0),
 						columnSpan = colSpanVal,
 						borderSettings = borderColorSetting,
