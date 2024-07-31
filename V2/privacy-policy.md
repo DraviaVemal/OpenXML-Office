@@ -16,13 +16,13 @@ layout:
 
 ### Introduction
 
-Our software package is designed to enhance your experience and provide valuable insights for ongoing improvements. To better understand how our software is used, we collect anonymous usage statistics. This policy explains how we collect, use, and protect your data.
+Your privacy is our top priority. Any data collected will solely be used to enhance our understanding of usage patterns and identify which areas require the most attention. We gather anonymous usage statistics to improve how our package is utilized. This policy outlines how we collect, use, and safeguard your data.
 
 ### Data Collection
 
 * **System Information:** Details about your operating system, hardware, and software environment.
 * **IP Address:** Your IP address is collected for geographic and regional analytics but is anonymized to prevent identification of individual users.
-* **Service Usage:** Information about the features and services of our software that are used.
+* **Service Usage:** Information about the features and components of our package that are used.
 
 ### Purpose of Data Collection
 
@@ -30,7 +30,7 @@ We do not collect personally identifiable information (PII). The data collected 
 
 ### Opt-Out
 
-You can choose not to participate in the collection of usage statistics by updating the `PrivacyProperties` object property during class initialistion of any package. Please note that opting out may affect the quality and development of future updates and features.
+You can choose not to participate in sharing of usage statistics by updating the `PrivacyProperties` that is the base extended class of any package you use.  Please note that opting out may affect the quality and development of future updates and features.
 
 ### Changes to This Policy
 
