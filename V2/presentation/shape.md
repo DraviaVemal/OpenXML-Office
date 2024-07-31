@@ -14,6 +14,8 @@ layout:
 
 # Shape
 
+Note: New features related to this feature is been worked on release v2.8.x. Document is not upto date.
+
 ### Shape Class Overview
 
 The `Shape` class, an essential component of the `OpenXMLOffice.Presentation` library, plays a pivotal role in template-based operations within PowerPoint presentations. This class serves as a fundamental object that enables developers to locate and manipulate shapes within a slide. When a shape is retrieved from a slide, the `Shape` object provides a powerful mechanism to precisely position and customize its properties based on the layout defined in the template.

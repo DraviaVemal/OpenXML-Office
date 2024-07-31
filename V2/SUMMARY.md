@@ -42,3 +42,4 @@
 ***
 
 * [LICENSE](license.md)
+* [Privacy Policy](privacy-policy.md)
