@@ -27,6 +27,8 @@ namespace OpenXMLOffice.Global_2007
             public object PackageName { get; set; }
             public string PackageVersion { get; set; }
             public string GlobalVersion { get; set; }
+            public bool HardwareDetails { get; internal set; }
+            public bool PackageDetails { get; internal set; }
         }
         /// <summary>
         /// 
@@ -134,18 +136,16 @@ namespace OpenXMLOffice.Global_2007
         /// </summary>
         protected void SendAnonymousSaveStates(AssemblyName assemblyName)
         {
-            ShareUsageCounterDetails = true;
-            ShareOsHardwareDetails = true;
-            ShareIpGeoLocation = true;
-            SharePackageRelatedDetails = true;
-            ShareComponentRelatedDetails = true;
             StatsPayload statsPayload = new StatsPayload();
             if (ShareUsageCounterDetails)
             {
                 statsPayload.UsageCounter = true;
+                statsPayload.PackageName = assemblyName.Name;
             }
             if (ShareOsHardwareDetails)
             {
+                statsPayload.HardwareDetails = true;
+                statsPayload.PackageName = assemblyName.Name;
                 statsPayload.OsVersion = Environment.OSVersion.ToString();
                 statsPayload.Os64Bit = Environment.Is64BitOperatingSystem;
                 statsPayload.HostProcess64Bit = Environment.Is64BitProcess;
@@ -155,11 +155,13 @@ namespace OpenXMLOffice.Global_2007
             if (ShareIpGeoLocation)
             {
                 statsPayload.EnableGeoTagging = true;
+                statsPayload.PackageName = assemblyName.Name;
             }
             if (SharePackageRelatedDetails)
             {
+                statsPayload.PackageDetails = true;
+                statsPayload.PackageName = assemblyName.Name;
                 statsPayload.GlobalVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                statsPayload.PackageName = assemblyName.FullName;
                 statsPayload.PackageVersion = assemblyName.Version.ToString();
             }
             if (ShareComponentRelatedDetails)
