@@ -17,18 +17,18 @@ namespace OpenXMLOffice.Global_2007
     {
         private class StatsPayload
         {
-            public bool UsageCounter { get; internal set; }
-            public bool HostProcess64Bit { get; internal set; }
-            public bool Os64Bit { get; internal set; }
-            public string DotnetVersion { get; internal set; }
-            public bool IsInteractiveApp { get; internal set; }
-            public string OsVersion { get; internal set; }
-            public bool EnableGeoTagging { get; internal set; }
-            public object PackageName { get; internal set; }
-            public string PackageVersion { get; internal set; }
-            public string GlobalVersion { get; internal set; }
-            public bool PackageDetails { get; internal set; }
+            public bool UsageCounter { get; set; }
+            public bool HostProcess64Bit { get; set; }
+            public bool Os64Bit { get; set; }
+            public string DotnetVersion { get; set; }
+            public bool IsInteractiveApp { get; set; }
+            public string OsVersion { get; set; }
+            public bool EnableGeoTagging { get; set; }
+            public object PackageName { get; set; }
+            public string PackageVersion { get; set; }
+            public string GlobalVersion { get; set; }
             public bool HardwareDetails { get; internal set; }
+            public bool PackageDetails { get; internal set; }
         }
         /// <summary>
         /// 
