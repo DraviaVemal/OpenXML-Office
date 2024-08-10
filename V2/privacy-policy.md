@@ -30,7 +30,42 @@ We do not collect personally identifiable information (PII). The data collected 
 
 ### Opt-Out
 
-You can choose not to participate in sharing of usage statistics by updating the `PrivacyProperties` that is the base extended class of any package you use.  Please note that opting out may affect the quality and development of future updates and features.
+You can choose not to participate in sharing of usage statistics by updating the `PrivacyProperties` flags.
+
+```csharp
+PrivacyProperties.ShareComponentRelatedDetails = false;
+PrivacyProperties.ShareIpGeoLocation = false;
+PrivacyProperties.ShareOsDetails= false;
+PrivacyProperties.SharePackageRelatedDetails = false;
+PrivacyProperties.ShareUsageCounterDetails = false;
+```
+
+### More Specific Information
+
+* **ShareComponentRelatedDetails**\
+  Share the internal components used from a package. \
+  We never share any details/data supplied when using the package. \
+  This are information related to use of OpenXML components like table, picture etc. \
+  This enables us to understand the component most used and divert more efforts in working and improving the components that are most used. \
+  I'm still working on figuring out right composition of data that's useful for me to develop most used component and give the maximum extend of privacy on what is shared.\
+  Note: Nothing is shared as of now
+* **ShareIpGeoLocation**\
+  Turn off IP geo location details collection.\
+  On request first reach the IP is converted to geo location and discarded. Geo location data is aggregated and stored in the system and no IP will be ever stored at any point of time.\
+  This Data is collected and stored at country and city level.\
+  As Aggregated counter providing no other valuable information about any personal detail.\
+  This data helps us in enabling language support and font,char code consideration that has to be focused on.
+* **ShareOsDetails**\
+  Turn off Operating system details collection.\
+  Data collection related to type of Operating System, .net framework, process type.\
+  This helps us decide minimum version and backward compatibility decision.
+* **SharePackageRelatedDetails**\
+  Share the current type of package and its version you are using. \
+  This enables us to understand the package usage "spreadsheet"/"presentation"/"word" and the version that's widely used.\
+  This helps us in making effort towards maintaining the backwards compatibility of new improvements.
+* **ShareUsageCounterDetails**\
+  This increment counter call that is made without any other data. Just triggering counter another file is generated thought our package.\
+  This will help us motivated community contribution and my sponsors, informed about the impact and use of package that is getting the support.
 
 ### Changes to This Policy
 
