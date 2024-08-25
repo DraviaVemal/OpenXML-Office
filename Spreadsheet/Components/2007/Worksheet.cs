@@ -43,6 +43,14 @@ namespace OpenXMLOffice.Spreadsheet_2007
 		{
 			return sheet.Name;
 		}
+
+		/// <summary>
+		/// Set the current active cell in a sheet
+		/// </summary>
+		public void SetActiveCell()
+		{
+			
+		}
 		/// <summary>
 		/// Insert Shape into slide
 		/// </summary>
@@ -464,6 +472,15 @@ namespace OpenXMLOffice.Spreadsheet_2007
 				return documentWorksheet.AppendChild(new X.SheetData());
 			}
 			return SheetData;
+		}
+		internal X.SheetViews GetWorkSheetView()
+		{
+			X.SheetViews sheetViews = documentWorksheet.Elements<X.SheetViews>().FirstOrDefault();
+			if (sheetViews == null)
+			{
+				return documentWorksheet.AppendChild(new X.SheetViews());
+			}
+			return sheetViews;
 		}
 		internal X.Hyperlinks GetWorkSheetHyperlinks()
 		{
