@@ -14,6 +14,8 @@ layout:
 
 # Worksheet
 
+Note: New features related to this feature is been worked on release v2.8.x. Document is not upto date
+
 Adding, Modifying a sheet from spreadsheet is handled by this class object
 
 ### Methods

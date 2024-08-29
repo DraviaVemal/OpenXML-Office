@@ -14,3 +14,4 @@ layout:
 
 # Table
 
+Note: New features related to this feature is been worked on release v2.8.x. Document is not upto date
