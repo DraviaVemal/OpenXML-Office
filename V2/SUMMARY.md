@@ -1,7 +1,11 @@
 # Table of contents
 
+## Welcome
+
 * [Getting Started](README.md)
-* [Introduction](<README (1).md>)
+* [Introduction](welcome/introduction.md)
+* [Privacy Policy](welcome/privacy-policy.md)
+* [License](welcome/license.md)
 
 ## Presentation
 
@@ -38,8 +42,3 @@
   * [Combo](spreadsheet/chart/combo.md)
 * [Style](spreadsheet/style.md)
 * [Shared](spreadsheet/shared.md)
-
-***
-
-* [LICENSE](license.md)
-* [Privacy Policy](privacy-policy.md)
