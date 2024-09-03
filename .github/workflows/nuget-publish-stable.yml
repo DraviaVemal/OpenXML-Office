@@ -1,12 +1,9 @@
-name: Package Build and Publish to NuGet
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+name: Package Build and Publish Stable Release to NuGet
+
 on:
   push:
     branches:
-      - main
+      - stable
     paths:
       - "Directory.Build.props"
 jobs:
