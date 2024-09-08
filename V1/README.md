@@ -6,7 +6,7 @@ description: >-
 
 # Getting Started
 
-### Check out new [release](https://openxml-office.draviavemal.com/). This Version is not longer maintained.
+### Check out new [release](https://openxml-office.draviavemal.com/). This Version is no longer maintained.
 
 ## Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
 
